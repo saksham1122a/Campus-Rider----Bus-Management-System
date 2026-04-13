@@ -152,9 +152,9 @@
 
 /* GLASS CARD */
 .hero-card {
-  width: 350px;
-  padding: 30px;
-  border-radius: 24px;
+  width: 400px;
+  padding: 35px;
+  border-radius: 28px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -163,6 +163,9 @@
   z-index: 4;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero-card::before {
@@ -181,27 +184,103 @@
   animation: shimmer 3s linear infinite;
 }
 
-.hero-card h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
-  font-weight: 700;
+/* BUS IN CARD */
+.card-bus-container {
+  margin-bottom: 25px;
+  position: relative;
 }
 
-.hero-card p {
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 12px;
+.card-bus {
+  width: 180px;
+  height: auto;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.card-bus:hover {
+  transform: scale(1.1);
+}
+
+/* CARD CONTENT */
+.card-content {
+  text-align: center;
+  width: 100%;
+}
+
+.hero-card h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+/* ROUTE INFO */
+.route-info {
+  margin-bottom: 15px;
+}
+
+.route-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   font-size: 14px;
-  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.route-point {
+  font-weight: 600;
+  color: white;
+}
+
+.route-dots {
+  padding: 2px 8px;
+  background: rgba(79, 195, 247, 0.2);
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* DEPARTURE INFO */
+.departure-info {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.departure-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.departure-time {
+  font-weight: 600;
+  color: #4FC3F7;
+}
+
+/* STATUS INFO */
+.status-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.status-label {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .live {
   color: #4FC3F7;
   font-weight: 600;
   display: inline-block;
-  padding: 2px 8px;
+  padding: 4px 12px;
   background: rgba(79, 195, 247, 0.2);
   border-radius: 20px;
   font-size: 12px;
+  border: 1px solid rgba(79, 195, 247, 0.3);
 }
 
 /* BUS ANIMATION */
@@ -218,6 +297,60 @@
   height: auto;
   filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
   transition: transform 0.3s ease;
+}
+
+/* HERO BUS */
+.hero-bus {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-bus-image {
+  width: 450px;
+  height: auto;
+  filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.5));
+  transition: all 0.3s ease;
+  cursor: grab;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.hero-bus-image:hover {
+  filter: drop-shadow(0 35px 80px rgba(79, 195, 247, 0.4));
+  transform: scale(1.05);
+}
+
+/* GLOW EFFECT */
+.hero-bus::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: radial-gradient(circle, rgba(79, 195, 247, 0.15), transparent 70%);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: glowPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glowPulse {
+  0% { 
+    opacity: 0.3; 
+    transform: scale(0.95);
+  }
+  50% { 
+    opacity: 0.6; 
+    transform: scale(1.05);
+  }
+  100% { 
+    opacity: 0.3; 
+    transform: scale(0.95);
+  }
 }
 
 /* FLOATING ANIMATIONS */
@@ -348,6 +481,15 @@
 
   .bus-image {
     width: 100px;
+  }
+
+  .hero-bus-image {
+    width: 200px;
+  }
+
+  .particle {
+    width: 6px;
+    height: 6px;
   }
 
   .features {

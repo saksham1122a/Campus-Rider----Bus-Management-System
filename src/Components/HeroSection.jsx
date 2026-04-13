@@ -1,25 +1,30 @@
 import '../Stylesheets/HeroSection.css';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useEffect } from 'react';
 
 const HeroSection = () => {
-  const features = [
-    {
-      title: "🚌 Bus Tracking",
-      desc: "Track your bus live with real-time GPS updates and status alerts."
-    },
-    {
-      title: "📍 Smart Routes",
-      desc: "View optimized routes with all stops and estimated arrival times."
-    },
-    {
-      title: "📅 Schedules",
-      desc: "Access complete bus schedules and plan your journey efficiently."
-    },
-    {
-      title: "👨‍🎓 Student Integration",
-      desc: "Register your bus and get personalized transport updates."
-    }
-  ];
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  
+  const rotateXSpring = useSpring(rotateX, { stiffness: 300, damping: 30 });
+  const rotateYSpring = useSpring(rotateY, { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const x = (e.clientX - centerX) / 5;
+    const y = (centerY - e.clientY) / 5;
+    
+    rotateX.set(y);
+    rotateY.set(x);
+  };
+
+  const handleMouseLeave = () => {
+    rotateX.set(0);
+    rotateY.set(0);
+  };
 
   return (
     <div className="hero-wrapper">
@@ -72,112 +77,41 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* RIGHT GLASS CARD */}
+        {/* RIGHT SIDE ANIMATED BUS */}
         <motion.div
-          className="hero-card"
-          initial={{ opacity: 0, y: 80, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          whileHover={{ scale: 1.02 }}
-        >
-          <motion.h3
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            🚍 Campus Rider
-          </motion.h3>
-          
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-          >
-            Route: College → City Center
-          </motion.p>
-          
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            Departure: 8:00 AM
-          </motion.p>
-          
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.1 }}
-          >
-            Status: <span className="live">Live Tracking</span>
-          </motion.p>
-        </motion.div>
-
-        {/* ANIMATED BUS */}
-        <motion.div
-          className="bus-container"
-          initial={{ x: "-100%", rotate: 0 }}
-          animate={{ x: "120%", rotate: [0, 2, -2, 0] }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "linear"
-          }}
+          className="hero-bus"
+          initial={{ opacity: 0, x: 100, scale: 0.5 }}
+          animate={{ opacity: 1, x: 0, scale: 1.5 }}
+          transition={{ duration: 1, delay: 0.4 }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
         >
           <motion.img
             src="/src/assets/bus.png"
             alt="Campus Bus"
-            className="bus-image"
+            className="hero-bus-image"
             animate={{
-              y: [0, -8, 0],
-              rotate: [0, 1, -1, 0]
+              y: [0, -8, 0]
             }}
             transition={{
               duration: 4,
               repeat: Infinity,
               ease: "easeInOut"
             }}
+            whileHover={{
+              scale: 1.05,
+              transition: { duration: 0.3 }
+            }}
+            style={{
+              rotateX: rotateXSpring,
+              rotateY: rotateYSpring,
+              transformStyle: 'preserve-3d',
+              cursor: 'grab'
+            }}
           />
         </motion.div>
       </section>
 
-      {/* FEATURES SECTION */}
-      <section className="features">
-        {features.map((item, index) => (
-          <motion.div
-            className="feature-card"
-            key={index}
-            initial={{ opacity: 0, y: 60, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ 
-              delay: index * 0.15, 
-              duration: 0.8 
-            }}
-            viewport={{ once: true }}
-            whileHover={{ 
-              scale: 1.05, 
-              y: -5,
-              boxShadow: "0 15px 40px rgba(79, 195, 247, 0.3)"
-            }}
-          >
-            <motion.h2
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: index * 0.15 + 0.2 }}
-            >
-              {item.title}
-            </motion.h2>
-            
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: index * 0.15 + 0.3 }}
-            >
-              {item.desc}
-            </motion.p>
-          </motion.div>
-        ))}
-      </section>
     </div>
   );
 };

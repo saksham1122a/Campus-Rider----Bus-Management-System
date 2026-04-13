@@ -1,0 +1,319 @@
+/* BUS ROUTES PAGE STYLES */
+.bus-routes-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.95) 0%,
+    rgba(31, 41, 55, 0.9) 25%,
+    rgba(17, 24, 39, 0.85) 50%,
+    rgba(19, 38, 74, 0.9) 75%,
+    rgba(15, 118, 110, 0.95) 100%
+  );
+  padding: 2rem;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* PAGE HEADER */
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-header h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, #4FC3F7, #87CEEB);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 30px rgba(79, 195, 247, 0.3);
+}
+
+.page-header p {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  opacity: 0.8;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* BUSES GRID */
+.buses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* BUS CARD */
+.bus-card {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.bus-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(79, 195, 247, 0.3);
+}
+
+.bus-card.selected {
+  background: linear-gradient(135deg, 
+    rgba(79, 195, 247, 0.15) 0%,
+    rgba(79, 195, 247, 0.08) 100%
+  );
+  border-color: rgba(79, 195, 247, 0.3);
+  transform: translateY(-5px);
+}
+
+.bus-header {
+  margin-bottom: 1rem;
+}
+
+.bus-header h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.driver-info {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.bus-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.stops-count {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4FC3F7;
+}
+
+.route-time {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.click-hint {
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* ROUTE DETAILS */
+.route-details {
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.98) 0%,
+    rgba(31, 41, 55, 0.95) 100%
+  );
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.route-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.route-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* ROUTE STOPS */
+.route-stops {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.stop-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.stop-icon {
+  font-size: 1.5rem;
+  width: 40px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.stop-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.stop-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: white;
+}
+
+.stop-time {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.stop-connector {
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  width: 2px;
+  height: 40px;
+  background: rgba(79, 195, 247, 0.3);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .bus-routes-page {
+    padding: 1rem;
+  }
+  
+  .buses-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .bus-card {
+    padding: 1.2rem;
+  }
+  
+  .bus-header h3 {
+    font-size: 1.2rem;
+  }
+  
+  .route-details {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .route-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .stop-item {
+    gap: 0.8rem;
+  }
+  
+  .stop-icon {
+    font-size: 1.2rem;
+    width: 30px;
+  }
+  
+  .stop-name {
+    font-size: 1rem;
+  }
+  
+  .stop-connector {
+    left: 14px;
+    top: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bus-routes-page {
+    padding: 0.8rem;
+  }
+  
+  .bus-card {
+    padding: 1rem;
+  }
+  
+  .bus-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .route-details {
+    padding: 1rem;
+  }
+  
+  .route-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .close-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+  
+  .stop-item {
+    gap: 0.6rem;
+    padding-left: 0.5rem;
+  }
+  
+  .stop-icon {
+    font-size: 1rem;
+    width: 25px;
+  }
+  
+  .stop-name {
+    font-size: 0.9rem;
+  }
+  
+  .stop-connector {
+    left: 12px;
+    top: 25px;
+    height: 25px;
+  }
+}

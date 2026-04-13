@@ -1,0 +1,468 @@
+/* BUSES PAGE STYLES */
+.buses-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.95) 0%,
+    rgba(31, 41, 55, 0.9) 25%,
+    rgba(17, 24, 39, 0.85) 50%,
+    rgba(19, 38, 74, 0.9) 75%,
+    rgba(15, 118, 110, 0.95) 100%
+  );
+  padding: 2rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ANIMATED BACKGROUND */
+.buses-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.floating-bus-1,
+.floating-bus-2,
+.floating-bus-3 {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0.1;
+  animation: float 20s ease-in-out infinite;
+}
+
+.floating-bus-1 {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floating-bus-2 {
+  top: 60%;
+  right: 15%;
+  animation-delay: 7s;
+}
+
+.floating-bus-3 {
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 14s;
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+    opacity: 0.1;
+  }
+  25% { 
+    transform: translateY(-20px) rotate(5deg); 
+    opacity: 0.15;
+  }
+  50% { 
+    transform: translateY(-10px) rotate(-3deg); 
+    opacity: 0.2;
+  }
+  75% { 
+    transform: translateY(-30px) rotate(2deg); 
+    opacity: 0.12;
+  }
+}
+
+/* PAGE HEADER */
+.buses-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.buses-header h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, #4FC3F7, #87CEEB);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 30px rgba(79, 195, 247, 0.3);
+}
+
+.buses-header p {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  opacity: 0.8;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* BUS CARDS GRID */
+.buses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* INDIVIDUAL BUS CARD */
+.bus-card {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 1.5rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-top: 3px solid transparent;
+}
+
+.bus-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bus-card:hover::before {
+  opacity: 1;
+}
+
+.bus-card.selected {
+  background: linear-gradient(135deg, 
+    rgba(79, 195, 247, 0.15) 0%,
+    rgba(79, 195, 247, 0.08) 100%
+  );
+  border-color: rgba(79, 195, 247, 0.3);
+  transform: scale(1.02);
+}
+
+.bus-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(79, 195, 247, 0.3);
+}
+
+/* CARD HEADER */
+.bus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bus-name-section h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.5rem 0;
+}
+
+.bus-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.bus-arrival {
+  text-align: right;
+}
+
+.arrival-time {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.2rem;
+}
+
+.arrival-label {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ROUTE INFORMATION */
+.bus-route {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+}
+
+.route-icon {
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.bus-route p {
+  color: white;
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* DRIVER INFORMATION */
+.bus-driver {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.driver-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4FC3F7, #1F8FA3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.driver-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.driver-name {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.driver-title {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* CAPACITY INFORMATION */
+.bus-capacity {
+  margin-bottom: 1.5rem;
+}
+
+.capacity-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0.8rem;
+}
+
+.capacity-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  background: linear-gradient(90deg, #4FC3F7, #87CEEB);
+}
+
+.capacity-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+}
+
+.current {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.total {
+  opacity: 0.7;
+  font-size: 1rem;
+}
+
+.label {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* NEXT STOP */
+.bus-next-stop {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+}
+
+.stop-icon {
+  font-size: 1.3rem;
+  opacity: 0.8;
+}
+
+.stop-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stop-name {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.stop-label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* FEATURES */
+.bus-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.feature-tag {
+  padding: 0.4rem 0.8rem;
+  background: rgba(79, 195, 247, 0.2);
+  border: 1px solid rgba(79, 195, 247, 0.3);
+  border-radius: 20px;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.feature-tag:hover {
+  background: rgba(79, 195, 247, 0.3);
+  transform: scale(1.05);
+}
+
+/* SELECTION INDICATOR */
+.selection-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #4FC3F7;
+  border-radius: 20px;
+  pointer-events: none;
+  box-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
+}
+
+/* FLOATING PARTICLES */
+.floating-particle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #4FC3F7, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  box-shadow: 0 0 10px rgba(79, 195, 247, 0.6);
+}
+
+/* STATUS COLORS */
+.bus-status {
+  color: white;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1200px) {
+  .buses-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .buses-page {
+    padding: 1rem;
+  }
+  
+  .buses-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .bus-card {
+    padding: 1.2rem;
+  }
+  
+  .bus-name-section h3 {
+    font-size: 1.2rem;
+  }
+  
+  .arrival-time {
+    font-size: 1.5rem;
+  }
+  
+  .floating-bus-1,
+  .floating-bus-2,
+  .floating-bus-3 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .buses-page {
+    padding: 0.8rem;
+  }
+  
+  .bus-card {
+    padding: 1rem;
+  }
+  
+  .bus-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  
+  .bus-arrival {
+    text-align: left;
+  }
+  
+  .bus-route,
+  .bus-driver,
+  .bus-next-stop {
+    padding: 0.8rem;
+  }
+  
+  .bus-features {
+    gap: 0.3rem;
+  }
+  
+  .feature-tag {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+  }
+}
