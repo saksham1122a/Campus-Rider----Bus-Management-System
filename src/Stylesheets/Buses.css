@@ -206,22 +206,61 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.5rem;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.bus-route:hover {
+  background: rgba(79, 195, 247, 0.1);
+  border-color: rgba(79, 195, 247, 0.3);
 }
 
 .route-icon {
   font-size: 1.5rem;
   opacity: 0.8;
+  flex-shrink: 0;
 }
 
-.bus-route p {
+.route-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.route-start {
   color: white;
   font-size: 0.95rem;
+  font-weight: 600;
   margin: 0;
-  line-height: 1.4;
+}
+
+.route-arrow {
+  color: #4FC3F7;
+  font-size: 1rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.route-destination {
+  color: #4FC3F7;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(2px);
+    opacity: 0.7;
+  }
 }
 
 /* DRIVER INFORMATION */

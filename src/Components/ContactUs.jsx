@@ -100,42 +100,7 @@ const ContactUs = () => {
 
   return (
     <div className={`contact-page ${isVisible ? 'visible' : ''}`}>
-      {/* Hero Section */}
-      <section className="contact-hero">
-        <div className="hero-content">
-          <h1 className="hero-title">
-            <span className="title-gradient">Get in Touch</span>
-          </h1>
-          <p className="hero-subtitle">
-            We're here to help! Reach out to us for any questions, support, or feedback
-          </p>
-        </div>
-      </section>
-
-      {/* Contact Info Cards */}
-      <section className="contact-info-section">
-        <div className="container">
-          <div className="contact-grid">
-            {contactInfo.map((info, index) => (
-              <div 
-                key={index}
-                className="contact-card"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="contact-icon">{info.icon}</div>
-                <h3 className="contact-title">{info.title}</h3>
-                <div className="contact-details">
-                  {info.details.map((detail, idx) => (
-                    <p key={idx} className="contact-detail">{detail}</p>
-                  ))}
-                </div>
-                <button className="contact-action">{info.action}</button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      
       {/* Contact Form & FAQ */}
       <section className="contact-main-section">
         <div className="container">
@@ -259,20 +224,6 @@ const ContactUs = () => {
         </div>
       </section>
 
-      {/* Emergency Contact */}
-      <section className="emergency-section">
-        <div className="container">
-          <div className="emergency-content">
-            <div className="emergency-icon">🚨</div>
-            <h2 className="emergency-title">Emergency Support</h2>
-            <p className="emergency-description">
-              For urgent matters requiring immediate assistance, please call our emergency hotline
-            </p>
-            <div className="emergency-number">+1 (555) 000-1111</div>
-            <p className="emergency-availability">Available 24/7</p>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

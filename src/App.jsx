@@ -5,6 +5,8 @@ import HeroSection from './Components/HeroSection'
 import OpeningAnimation from './Components/openinganimation'
 import Buses from './Components/Buses'
 import BusRoutes from './Components/BusRoutes'
+import About from './Components/About'
+import ContactUs from './Components/ContactUs'
 import Footer from './Components/Footer'
 import './App.css'
 
@@ -16,6 +18,7 @@ const App = () => {
   };
 
   return (
+    
     <BrowserRouter>
       <OpeningAnimation onComplete={handleOpeningComplete} /> 
       {!showOpening && (
@@ -24,6 +27,8 @@ const App = () => {
           <HeroSection />
           <Buses />
           <BusRoutes />
+          <About/>
+          <ContactUs/>
           <Footer />
         </>
       )}

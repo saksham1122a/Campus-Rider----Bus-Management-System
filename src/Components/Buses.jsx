@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import '../Stylesheets/Buses.css';
 
 const Buses = () => {
-  const navigate = useNavigate();
   const [selectedBus, setSelectedBus] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -16,89 +14,213 @@ const Buses = () => {
   const buses = [
     {
       id: 1,
-      name: "Express Route 101",
-      route: "North Campus → Downtown",
-      driver: "Michael Johnson",
+      name: "Bus 8 (1455)",
+      route: "Kohade",
+      destination: "PCTE Parking",
+      driver: "Rajesh Kumar",
       status: "active",
-      capacity: 45,
-      currentPassengers: 32,
-      nextStop: "Library Plaza",
-      arrivalTime: "5 min",
-      features: ["WiFi", "AC", "USB Charging"],
+      capacity: 50,
+      currentPassengers: 28,
+      nextStop: "Kohade Road",
+      arrivalTime: "07:30 AM",
+      features: ["Camera", "GPS", "Tracking"],
       color: "#4FC3F7"
     },
     {
       id: 2,
-      name: "Campus Loop 202",
-      route: "Engineering → Science → Arts",
-      driver: "Sarah Williams",
+      name: "Bus 7 (9755)",
+      route: "Veer Palace",
+      destination: "PCTE Parking",
+      driver: "Amit Sharma",
       status: "active",
-      capacity: 35,
-      currentPassengers: 28,
-      nextStop: "Student Center",
-      arrivalTime: "2 min",
-      features: ["WiFi", "Wheelchair Access"],
+      capacity: 45,
+      currentPassengers: 32,
+      nextStop: "Veer Palace Junction",
+      arrivalTime: "07:50 AM",
+      features: ["WiFi", "AC", "USB Charging"],
       color: "#1F8FA3"
     },
     {
       id: 3,
-      name: "Night Shuttle 303",
-      route: "Dorms → Main Campus",
-      driver: "David Chen",
-      status: "delayed",
-      capacity: 40,
-      currentPassengers: 15,
-      nextStop: "North Gate",
-      arrivalTime: "8 min",
+      name: "Bus 6 (1855)",
+      route: "Police Colony",
+      destination: "PCTE Parking",
+      driver: "Vikram Singh",
+      status: "active",
+      capacity: 48,
+      currentPassengers: 35,
+      nextStop: "Police Colony Gate",
+      arrivalTime: "07:55 AM",
       features: ["WiFi", "AC", "Security"],
       color: "#ff6b35"
     },
     {
       id: 4,
-      name: "Express 404",
-      route: "Sports Complex → Parking",
-      driver: "Emily Rodriguez",
+      name: "Bus 16 (1155)",
+      route: "Samrala Chowk",
+      destination: "PCTE Parking",
+      driver: "Anil Verma",
       status: "active",
-      capacity: 50,
+      capacity: 52,
       currentPassengers: 38,
-      nextStop: "Stadium Entrance",
-      arrivalTime: "3 min",
+      nextStop: "Samrala Chowk",
+      arrivalTime: "08:04 AM",
       features: ["WiFi", "AC", "Live Tracking"],
       color: "#87CEEB"
     },
     {
       id: 5,
-      name: "Campus Express 505",
-      route: "Main Gate → All Departments",
-      driver: "James Wilson",
+      name: "Bus 9 (9055)",
+      route: "Sherpur",
+      destination: "PCTE Parking",
+      driver: "Mohan Das",
       status: "active",
-      capacity: 42,
-      currentPassengers: 35,
-      nextStop: "Administration Building",
-      arrivalTime: "1 min",
+      capacity: 46,
+      currentPassengers: 30,
+      nextStop: "Sherpur Main",
+      arrivalTime: "07:55 AM",
       features: ["WiFi", "AC", "Priority Seating"],
       color: "#4FC3F7"
     },
     {
       id: 6,
-      name: "Weekend Special 606",
-      route: "Campus Tour → Shopping District",
-      driver: "Lisa Anderson",
-      status: "inactive",
-      capacity: 38,
-      currentPassengers: 0,
-      nextStop: "Not Scheduled",
-      arrivalTime: "--",
-      features: ["WiFi", "AC", "Tour Guide"],
+      name: "Bus 13 (7889)",
+      route: "Vasti",
+      destination: "PCTE Parking",
+      driver: "Ramesh Patel",
+      status: "active",
+      capacity: 44,
+      currentPassengers: 28,
+      nextStop: "Vasti Center",
+      arrivalTime: "07:55 AM",
+      features: ["WiFi", "AC", "GPS"],
       color: "#134e4a"
+    },
+    {
+      id: 7,
+      name: "Bus 12 (1555)",
+      route: "Kalash Nagar",
+      destination: "PCTE Parking",
+      driver: "Suresh Kumar",
+      status: "active",
+      capacity: 50,
+      currentPassengers: 40,
+      nextStop: "Kalash Nagar",
+      arrivalTime: "08:00 AM",
+      features: ["WiFi", "AC", "USB"],
+      color: "#4FC3F7"
+    },
+    {
+      id: 8,
+      name: "Bus 10 (0489)",
+      route: "Kapoor",
+      destination: "PCTE Parking",
+      driver: "Prakash Singh",
+      status: "active",
+      capacity: 42,
+      currentPassengers: 25,
+      nextStop: "Kapoor Junction",
+      arrivalTime: "07:55 AM",
+      features: ["WiFi", "AC", "Tracking"],
+      color: "#1F8FA3"
+    },
+    {
+      id: 9,
+      name: "Bus 18",
+      route: "Dugri",
+      destination: "PCTE Parking",
+      driver: "Deepak Kumar",
+      status: "active",
+      capacity: 48,
+      currentPassengers: 35,
+      nextStop: "Dugri Road",
+      arrivalTime: "08:05 AM",
+      features: ["WiFi", "AC", "GPS"],
+      color: "#ff6b35"
+    },
+    {
+      id: 10,
+      name: "Bus 15 & 14 (5679, 3445)",
+      route: "Jugraon",
+      destination: "PCTE Parking",
+      driver: "Ravi Kumar & Arun Singh",
+      status: "active",
+      capacity: 90,
+      currentPassengers: 65,
+      nextStop: "Jugraon Junction",
+      arrivalTime: "08:00 AM",
+      features: ["WiFi", "AC", "Security", "Live Tracking"],
+      color: "#87CEEB"
+    },
+    {
+      id: 11,
+      name: "Bus 11 (2350)",
+      route: "Gardroo",
+      destination: "PCTE Parking",
+      driver: "Manoj Kumar",
+      status: "active",
+      capacity: 45,
+      currentPassengers: 30,
+      nextStop: "Gardroo Main",
+      arrivalTime: "08:05 AM",
+      features: ["WiFi", "AC", "GPS"],
+      color: "#4FC3F7"
+    },
+    {
+      id: 12,
+      name: "Bus 17 (8112)",
+      route: "Tajpur Road / Raikot",
+      destination: "PCTE Parking",
+      driver: "Sanjay Kumar",
+      status: "active",
+      capacity: 50,
+      currentPassengers: 38,
+      nextStop: "Tajpur Road",
+      arrivalTime: "07:40 AM",
+      features: ["WiFi", "AC", "Live Tracking"],
+      color: "#134e4a"
+    },
+    {
+      id: 13,
+      name: "Private - Habowal",
+      route: "Habowal",
+      destination: "PCTE Parking",
+      driver: "Private Operator",
+      status: "active",
+      capacity: 80,
+      currentPassengers: 55,
+      nextStop: "Habowal Road",
+      arrivalTime: "08:15 AM",
+      features: ["WiFi", "AC", "Premium Service"],
+      color: "#ff6b35"
+    },
+    {
+      id: 14,
+      name: "Private - Gill Nehar",
+      route: "Gill Nehar",
+      destination: "PCTE Parking",
+      driver: "Private Operator",
+      status: "active",
+      capacity: 75,
+      currentPassengers: 48,
+      nextStop: "Gill Nehar Road",
+      arrivalTime: "08:10 AM",
+      features: ["WiFi", "AC", "Premium"],
+      color: "#87CEEB"
     }
   ];
 
   const handleBusClick = (bus) => {
-    setSelectedBus(bus.id);
-    setTimeout(() => {
-      navigate(`/bus/${bus.id}`);
-    }, 300);
+    setSelectedBus(selectedBus === bus.id ? null : bus.id);
+    console.log('Bus clicked:', bus.name, 'ID:', bus.id);
+  };
+
+  const handleBusHover = (busId) => {
+    setSelectedBus(busId);
+  };
+
+  const handleBusLeave = () => {
+    setSelectedBus(null);
   };
 
   const getStatusColor = (status) => {
@@ -112,10 +234,10 @@ const Buses = () => {
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'active': return '🟢';
-      case 'delayed': return '🟡';
-      case 'inactive': return '🔴';
-      default: return '⚪';
+      case 'active': return '';
+      case 'delayed': return '';
+      case 'inactive': return '';
+      default: return '';
     }
   };
 
@@ -162,18 +284,22 @@ const Buses = () => {
                 ease: "easeOut"
               }}
               whileHover={{ 
-                scale: 1.02,
-                y: -5,
-                boxShadow: "0 20px 40px rgba(79, 195, 247, 0.3)"
+                scale: 1.03,
+                y: -8,
+                boxShadow: "0 25px 50px rgba(79, 195, 247, 0.4)",
+                cursor: "pointer"
               }}
               whileTap={{ 
-                scale: 0.98,
+                scale: 0.97,
                 transition: { duration: 0.1 }
               }}
               onClick={() => handleBusClick(bus)}
+              onMouseEnter={() => handleBusHover(bus.id)}
+              onMouseLeave={handleBusLeave}
               style={{
                 borderTop: `3px solid ${bus.color}`,
-                borderLeft: selectedBus === bus.id ? `3px solid ${bus.color}` : 'none'
+                borderLeft: selectedBus === bus.id ? `3px solid ${bus.color}` : 'none',
+                cursor: 'pointer'
               }}
             >
               {/* Card Header */}
@@ -193,7 +319,11 @@ const Buses = () => {
               {/* Route Information */}
               <div className="bus-route">
                 <div className="route-icon">🛤️</div>
-                <p>{bus.route}</p>
+                <div className="route-info">
+                  <p className="route-start">{bus.route}</p>
+                  <div className="route-arrow">➡️</div>
+                  <p className="route-destination">{bus.destination}</p>
+                </div>
               </div>
 
               {/* Driver Information */}
