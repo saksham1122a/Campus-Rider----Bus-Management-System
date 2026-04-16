@@ -132,13 +132,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Back To Top */}
-      <button
-        className={`back-to-top ${showBackToTop ? "visible" : ""}`}
-        onClick={scrollToTop}
-      >
-        ?
-      </button>
+     
     </footer>
   );
 };

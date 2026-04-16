@@ -1,93 +1,95 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import '../Stylesheets/BusRoutes.css';
 
 const BusRoutes = () => {
+  const navigate = useNavigate();
   const [selectedBus, setSelectedBus] = useState(null);
   const [hoveredBus, setHoveredBus] = useState(null);
 
   const buses = [
     {
       id: 1,
-      name: "Bus 8 (1455)",
+      name: "Bus 8",
       driver: "Rajesh Kumar",
       color: "#4FC3F7",
       stops: [
         { name: "Kohade", time: "07:30 AM", type: "start" },
         { name: "Kohade Main Stop", time: "07:32 AM", type: "stop" },
         { name: "Kohade Junction", time: "07:35 AM", type: "stop" },
-        { name: "College Gate", time: "07:38 AM", type: "stop" },
-        { name: "College", time: "07:40 AM", type: "end" }
+        { name: "College Gate", time: "08:25 AM", type: "stop" },
+        { name: "College", time: "08:30 AM", type: "end" }
       ]
     },
     {
       id: 2,
-      name: "Bus 7 (9755)",
+      name: "Bus 7",
       driver: "Amit Sharma",
       color: "#1F8FA3",
       stops: [
         { name: "Veer Palace", time: "07:50 AM", type: "start" },
         { name: "Veer Palace Junction", time: "07:53 AM", type: "stop" },
         { name: "Main Road", time: "07:56 AM", type: "stop" },
-        { name: "College Entrance", time: "07:58 AM", type: "stop" },
-        { name: "College", time: "08:00 AM", type: "end" }
+        { name: "College Entrance", time: "08:28 AM", type: "stop" },
+        { name: "College", time: "08:30 AM", type: "end" }
       ]
     },
     {
       id: 3,
-      name: "Bus 6 (1855)",
+      name: "Bus 6",
       driver: "Vikram Singh",
       color: "#ff6b35",
       stops: [
         { name: "Police Colony", time: "07:55 AM", type: "start" },
         { name: "Police Colony Gate", time: "07:58 AM", type: "stop" },
         { name: "Police Station", time: "08:00 AM", type: "stop" },
-        { name: "College Road", time: "08:03 AM", type: "stop" },
-        { name: "College", time: "08:05 AM", type: "end" }
+        { name: "College Road", time: "08:20 AM", type: "stop" },
+        { name: "College", time: "08:25 AM", type: "end" }
       ]
     },
     {
       id: 4,
-      name: "Bus 16 (1155)",
+      name: "Bus 16",
       driver: "Anil Verma",
       color: "#87CEEB",
       stops: [
         { name: "Samrala Chowk", time: "08:04 AM", type: "start" },
         { name: "Samrala Main", time: "08:07 AM", type: "stop" },
         { name: "Samrala Market", time: "08:10 AM", type: "stop" },
-        { name: "College Avenue", time: "08:13 AM", type: "stop" },
-        { name: "College", time: "08:15 AM", type: "end" }
+        { name: "College Avenue", time: "08:25 AM", type: "stop" },
+        { name: "College", time: "08:35 AM", type: "end" }
       ]
     },
     {
       id: 5,
-      name: "Bus 9 (9055)",
+      name: "Bus 9",
       driver: "Mohan Das",
       color: "#4FC3F7",
       stops: [
         { name: "Sherpur", time: "07:55 AM", type: "start" },
         { name: "Sherpur Main", time: "07:58 AM", type: "stop" },
         { name: "Sherpur Center", time: "08:01 AM", type: "stop" },
-        { name: "College Road", time: "08:04 AM", type: "stop" },
-        { name: "College", time: "08:06 AM", type: "end" }
+        { name: "College Road", time: "08:24 AM", type: "stop" },
+        { name: "College", time: "08:26 AM", type: "end" }
       ]
     },
     {
       id: 6,
-      name: "Bus 13 (7889)",
+      name: "Bus 13",
       driver: "Ramesh Patel",
       color: "#134e4a",
       stops: [
         { name: "Vasti", time: "07:55 AM", type: "start" },
         { name: "Vasti Center", time: "07:58 AM", type: "stop" },
         { name: "Vasti Market", time: "08:01 AM", type: "stop" },
-        { name: "College Gate", time: "08:04 AM", type: "stop" },
-        { name: "College", time: "08:06 AM", type: "end" }
+        { name: "College Gate", time: "08:24 AM", type: "stop" },
+        { name: "College", time: "08:26 AM", type: "end" }
       ]
     },
     {
       id: 7,
-      name: "Bus 12 (1555)",
+      name: "Bus 12",
       driver: "Suresh Kumar",
       color: "#4FC3F7",
       stops: [
@@ -100,15 +102,15 @@ const BusRoutes = () => {
     },
     {
       id: 8,
-      name: "Bus 10 (0489)",
+      name: "Bus 10",
       driver: "Prakash Singh",
       color: "#1F8FA3",
       stops: [
         { name: "Kapoor", time: "07:55 AM", type: "start" },
         { name: "Kapoor Junction", time: "07:58 AM", type: "stop" },
         { name: "Kapoor Main", time: "08:01 AM", type: "stop" },
-        { name: "College Road", time: "08:04 AM", type: "stop" },
-        { name: "College", time: "08:06 AM", type: "end" }
+        { name: "College Road", time: "08:24 AM", type: "stop" },
+        { name: "College", time: "08:26 AM", type: "end" }
       ]
     },
     {
@@ -120,39 +122,39 @@ const BusRoutes = () => {
         { name: "Dugri", time: "08:05 AM", type: "start" },
         { name: "Dugri Main", time: "08:08 AM", type: "stop" },
         { name: "Dugri Center", time: "08:11 AM", type: "stop" },
-        { name: "College Avenue", time: "08:14 AM", type: "stop" },
-        { name: "College", time: "08:16 AM", type: "end" }
+        { name: "College Avenue", time: "08:24 AM", type: "stop" },
+        { name: "College", time: "08:26 AM", type: "end" }
       ]
     },
     {
       id: 10,
-      name: "Bus 15 & 14 (5679, 3445)",
+      name: "Bus 15 & 14",
       driver: "Ravi Kumar & Arun Singh",
       color: "#87CEEB",
       stops: [
         { name: "Jugraon", time: "08:00 AM", type: "start" },
         { name: "Jugraon Junction", time: "08:03 AM", type: "stop" },
         { name: "Jugraon Main", time: "08:06 AM", type: "stop" },
-        { name: "College Road", time: "08:09 AM", type: "stop" },
-        { name: "College", time: "08:11 AM", type: "end" }
+        { name: "College Road", time: "08:24 AM", type: "stop" },
+        { name: "College", time: "08:26 AM", type: "end" }
       ]
     },
     {
       id: 11,
-      name: "Bus 11 (2350)",
+      name: "Bus 11",
       driver: "Manoj Kumar",
       color: "#4FC3F7",
       stops: [
         { name: "Gardroo", time: "08:05 AM", type: "start" },
         { name: "Gardroo Main", time: "08:08 AM", type: "stop" },
         { name: "Gardroo Center", time: "08:11 AM", type: "stop" },
-        { name: "College Gate", time: "08:14 AM", type: "stop" },
-        { name: "College", time: "08:16 AM", type: "end" }
+        { name: "College Gate", time: "08:24 AM", type: "stop" },
+        { name: "College", time: "08:26 AM", type: "end" }
       ]
     },
     {
       id: 12,
-      name: "Bus 17 (8112)",
+      name: "Bus 17",
       driver: "Sanjay Kumar",
       color: "#134e4a",
       stops: [
@@ -160,12 +162,12 @@ const BusRoutes = () => {
         { name: "Tajpur Junction", time: "07:43 AM", type: "stop" },
         { name: "Raikot", time: "07:46 AM", type: "stop" },
         { name: "Raikot Main", time: "07:49 AM", type: "stop" },
-        { name: "College", time: "07:52 AM", type: "end" }
+        { name: "College", time: "08:22 AM", type: "end" }
       ]
     },
     {
       id: 13,
-      name: "Private - Habowal",
+      name: "Private Bus - Habowal",
       driver: "Private Operator",
       color: "#ff6b35",
       stops: [
@@ -178,15 +180,15 @@ const BusRoutes = () => {
     },
     {
       id: 14,
-      name: "Private - Gill Nehar",
+      name: "Private Bus - Gill Nehar",
       driver: "Private Operator",
       color: "#87CEEB",
       stops: [
         { name: "Gill Nehar", time: "08:10 AM", type: "start" },
         { name: "Gill Nehar Main", time: "08:13 AM", type: "stop" },
         { name: "Gill Nehar Center", time: "08:16 AM", type: "stop" },
-        { name: "College Road", time: "08:19 AM", type: "stop" },
-        { name: "College", time: "08:21 AM", type: "end" }
+        { name: "College Road", time: "08:24 AM", type: "stop" },
+        { name: "College", time: "08:26 AM", type: "end" }
       ]
     }
   ];
@@ -194,7 +196,7 @@ const BusRoutes = () => {
   const handleBusClick = (bus) => {
     try {
       console.log('Bus clicked:', bus.name, 'ID:', bus.id, 'Driver:', bus.driver);
-      setSelectedBus(selectedBus === bus.id ? null : bus.id);
+      navigate(`/bus/${bus.id}`, { state: { bus } });
     } catch (error) {
       console.error('Error handling bus click:', error);
     }
@@ -210,10 +212,10 @@ const BusRoutes = () => {
 
   const getStopIcon = (type) => {
     switch (type) {
-      case 'start': return '??';
-      case 'stop': return '??';
-      case 'end': return '??';
-      default: return '??';
+      case 'start': return '📍';
+      case 'stop': return '🛑';
+      case 'end': return '🎯';
+      default: return '📍';
     }
   };
 
@@ -230,9 +232,9 @@ const BusRoutes = () => {
     <div className="bus-routes-page">
       {/* Animated Background */}
       <div className="animated-background">
-        <div className="floating-route-1">??</div>
-        <div className="floating-route-2">??</div>
-        <div className="floating-route-3">??</div>
+        <div className="floating-route-1">🚌</div>
+        <div className="floating-route-2">🛣️</div>
+        <div className="floating-route-3">📍</div>
       </div>
 
       {/* Header */}
@@ -292,19 +294,7 @@ const BusRoutes = () => {
           >
             {/* Card Header */}
             <div className="bus-header">
-              <div className="bus-title-section">
-                <h3 className="bus-name" style={{ color: bus.color }}>{bus.name}</h3>
-                <span className="bus-status">
-                  <span className="status-dot"></span>
-                  Active
-                </span>
-              </div>
-              <div className="bus-meta">
-                <span className="driver-info">
-                  <span className="driver-icon">??</span>
-                  {bus.driver}
-                </span>
-              </div>
+              <h3 className="bus-name" style={{ color: bus.color }}>{bus.name}</h3>
             </div>
             
             {/* Bus Information */}
@@ -325,12 +315,25 @@ const BusRoutes = () => {
               </div>
               <div className="info-row">
                 <div className="info-item">
-                  <span className="info-label">Total Stops</span>
-                  <span className="info-value">{bus.stops.length}</span>
+                  <span className="info-label">Bus Number</span>
+                  <span className="info-value">{bus.id === 1 ? '1455' : 
+                    bus.id === 2 ? '9755' :
+                    bus.id === 3 ? '1855' :
+                    bus.id === 4 ? '1155' :
+                    bus.id === 5 ? '9055' :
+                    bus.id === 6 ? '7889' :
+                    bus.id === 7 ? '1555' :
+                    bus.id === 8 ? '0489' :
+                    bus.id === 9 ? '18' :
+                    bus.id === 10 ? '5679, 3445' :
+                    bus.id === 11 ? '2350' :
+                    bus.id === 12 ? '8112' :
+                    bus.id === 13 ? 'Habowal' :
+                    bus.id === 14 ? 'Gill Nehar' : ''}</span>
                 </div>
                 <div className="info-item">
-                  <span className="info-label">Driver</span>
-                  <span className="info-value">{bus.driver}</span>
+                  <span className="info-label">Total Stops</span>
+                  <span className="info-value">{bus.stops.length}</span>
                 </div>
               </div>
             </div>
@@ -340,7 +343,7 @@ const BusRoutes = () => {
               <div className="preview-line"></div>
               <div className="preview-stops">
                 <div className="preview-stop start">
-                  <span className="preview-icon">??</span>
+                  <span className="preview-icon">🚏</span>
                   <span>{bus.stops[0].name}</span>
                 </div>
                 <div className="preview-dots">
@@ -349,18 +352,13 @@ const BusRoutes = () => {
                   ))}
                 </div>
                 <div className="preview-stop end">
-                  <span className="preview-icon">??</span>
+                  <span className="preview-icon">🎓</span>
                   <span>{bus.stops[bus.stops.length - 1].name}</span>
                 </div>
               </div>
             </div>
 
-            {/* Click Hint */}
-            <div className="click-hint">
-              <span className="hint-icon">??</span>
-              <span>View Details</span>
-            </div>
-
+            
             {/* Hover Preview */}
             {hoveredBus === bus.id && (
               <motion.div 

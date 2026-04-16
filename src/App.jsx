@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './Components/Navbar'
 import HeroSection from './Components/HeroSection'
 import OpeningAnimation from './Components/openinganimation'
@@ -27,8 +27,8 @@ const App = () => {
           <HeroSection />
           <Buses />
           <BusRoutes />
-          <About/>
-          <ContactUs/>
+          <About />
+          <ContactUs />
           <Footer />
         </>
       )}

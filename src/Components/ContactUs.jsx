@@ -213,12 +213,24 @@ const ContactUs = () => {
       {/* Map Section */}
       <section className="map-section">
         <div className="container">
-          <h2 className="section-title">Find Us on Campus</h2>
-          <div className="map-container">
-            <div className="map-placeholder">
-              <div className="map-icon">🗺️</div>
-              <p>Interactive Campus Map</p>
-              <p className="map-subtitle">Click to view full map with directions</p>
+          <div className="map-grid">
+            <div className="map-iframe">
+              <iframe
+                src="https://www.google.com/maps?q=PCTE+Group+of+Institute+Ludhiana&output=embed"
+                width="100%"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="PCTE Group of Institute Ludhiana - Google Maps"
+              ></iframe>
+            </div>
+            <div className="map-info">
+              <h3>PCTE Group of Institute</h3>
+              <p className="map-address">
+                <strong>Address:</strong> PCTE Group of Institute, Ludhiana, Punjab, India
+              </p>
             </div>
           </div>
         </div>

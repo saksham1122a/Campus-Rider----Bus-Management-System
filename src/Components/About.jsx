@@ -23,7 +23,7 @@ const About = () => {
                 Your smart campus transport solution. We provide real-time tracking, reliable schedules, and comfortable rides for students and faculty.
               </p>
               <p className="about-description">
-                Founded in 2020, Campus Rider has transformed how students navigate their campus environment with innovative technology and user-centric design.
+                Founded in 2026, Campus Rider has transformed how students navigate their campus environment with innovative technology and user-centric design.
               </p>
               <div className="about-features">
                 <div className="feature-item">
