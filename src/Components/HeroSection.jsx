@@ -1,8 +1,10 @@
 import '../Stylesheets/HeroSection.css';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
   
@@ -63,6 +65,7 @@ const HeroSection = () => {
               className="primary-btn"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => navigate('/buses')}
             >
               Get Started
             </motion.button>
@@ -71,6 +74,7 @@ const HeroSection = () => {
               className="secondary-btn"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => navigate('/busroutes')}
             >
               View Routes
             </motion.button>

@@ -1,0 +1,30 @@
+/* GLOBAL INTERACTION FIXES */
+* {
+  box-sizing: border-box;
+}
+
+/* Ensure all interactive elements work */
+a, button, .nav-item, .bus-card, .action-btn, .close-btn {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+/* Fix any overlay issues */
+.hero-wrapper, .hero, .buses-page, .bus-routes-page {
+  pointer-events: none;
+}
+
+.hero-wrapper > *, .hero > *, .buses-page > *, .bus-routes-page > * {
+  pointer-events: auto;
+}
+
+/* Ensure navbar is always interactive */
+.navbar, .nav-container, .nav-item, .website-name {
+  pointer-events: auto !important;
+  z-index: 1000 !important;
+}
+
+/* Fix cursor for all clickable elements */
+[onclick], [role="button"], button, a {
+  cursor: pointer !important;
+}

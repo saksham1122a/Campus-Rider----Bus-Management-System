@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import '../Stylesheets/BusRoutes.css';
 
 const BusRoutes = () => {
-  const navigate = useNavigate();
+  console.log('BusRoutes component is mounting!');
+  
   const [selectedBus, setSelectedBus] = useState(null);
   const [hoveredBus, setHoveredBus] = useState(null);
 
@@ -196,7 +195,7 @@ const BusRoutes = () => {
   const handleBusClick = (bus) => {
     try {
       console.log('Bus clicked:', bus.name, 'ID:', bus.id, 'Driver:', bus.driver);
-      navigate(`/bus/${bus.id}`, { state: { bus } });
+      setSelectedBus(bus.id);
     } catch (error) {
       console.error('Error handling bus click:', error);
     }
@@ -231,65 +230,36 @@ const BusRoutes = () => {
   return (
     <div className="bus-routes-page">
       {/* Animated Background */}
-      <div className="animated-background">
-        <div className="floating-route-1">🚌</div>
-        <div className="floating-route-2">🛣️</div>
-        <div className="floating-route-3">📍</div>
+      <div className="routes-background">
+        <div className="floating-route-1">ð</div>
+        <div className="floating-route-2">ð</div>
+        <div className="floating-route-3">ð</div>
       </div>
 
       {/* Header */}
-      <motion.div 
-        className="page-header"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-      >
+      <div className="page-header">
         <h1 className="page-title">
           <span className="title-gradient">Campus Bus Routes</span>
         </h1>
         <p className="page-subtitle">
           Click on any bus to see detailed route information and timing
         </p>
-      </motion.div>
+      </div>
 
       {/* Bus Cards Grid */}
       <div className="buses-grid">
         {buses.map((bus, index) => (
-          <motion.div
+          <div
             key={bus.id}
             className={`bus-card ${selectedBus === bus.id ? 'selected' : ''} ${hoveredBus === bus.id ? 'hovered' : ''}`}
-            initial={{ 
-              opacity: 0, 
-              scale: 0.8,
-              y: 30
-            }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1,
-              y: 0
-            }}
-            transition={{ 
-              duration: 0.6,
-              delay: index * 0.1,
-              ease: "easeOut"
-            }}
-            whileHover={{ 
-              scale: 1.05,
-              y: -10,
-              boxShadow: "0 20px 40px rgba(79, 195, 247, 0.3)",
-              cursor: "pointer"
-            }}
-            whileTap={{ 
-              scale: 0.98,
-              transition: { duration: 0.1 }
-            }}
             onClick={() => handleBusClick(bus)}
             onMouseEnter={() => handleBusHover(bus.id)}
             onMouseLeave={handleBusLeave}
             style={{ 
               borderTop: `3px solid ${bus.color}`,
               borderLeft: selectedBus === bus.id ? `3px solid ${bus.color}` : 'none',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              animationDelay: `${index * 0.1}s`
             }}
           >
             {/* Card Header */}
@@ -361,12 +331,7 @@ const BusRoutes = () => {
             
             {/* Hover Preview */}
             {hoveredBus === bus.id && (
-              <motion.div 
-                className="hover-preview"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-              >
+              <div className="hover-preview">
                 <div className="preview-content">
                   <h4>Quick Preview</h4>
                   <div className="preview-details">
@@ -375,29 +340,16 @@ const BusRoutes = () => {
                     <p><strong>Time:</strong> {bus.stops[0].time} - {bus.stops[bus.stops.length - 1].time}</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             )}
-          </motion.div>
+          </div>
         ))}
       </div>
 
       {/* Detailed Route Information */}
-      <AnimatePresence>
-        {selectedBus && (
-          <motion.div
-            className="route-details-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.div
-              className="route-details"
-              initial={{ opacity: 0, scale: 0.8, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 20 }}
-              transition={{ duration: 0.4 }}
-            >
+      {selectedBus && (
+        <div className="route-details-overlay">
+          <div className="route-details" style={{ animationDelay: '0.2s' }}>
               {/* Route Header */}
               <div className="route-header">
                 <div className="route-title-section">
@@ -411,8 +363,6 @@ const BusRoutes = () => {
                 <button 
                   className="close-btn"
                   onClick={() => setSelectedBus(null)}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
                 >
                   ×
                 </button>
@@ -453,13 +403,7 @@ const BusRoutes = () => {
                 <h3 className="stops-title">Route Stops</h3>
                 <div className="stops-timeline">
                   {buses.find(b => b.id === selectedBus)?.stops.map((stop, index) => (
-                    <motion.div
-                      key={index}
-                      className="stop-item"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.3 }}
-                    >
+                    <div key={index} className="stop-item">
                       <div className="stop-marker">
                         <div className="stop-icon">
                           {getStopIcon(stop.type)}
@@ -473,7 +417,7 @@ const BusRoutes = () => {
                       {index < buses.find(b => b.id === selectedBus).stops.length - 1 && (
                         <div className="stop-connector" />
                       )}
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -481,34 +425,15 @@ const BusRoutes = () => {
               {/* Action Buttons */}
               <div className="route-actions">
                 <button 
-                  className="action-btn primary"
-                  onClick={() => console.log('Book seat for:', buses.find(b => b.id === selectedBus)?.name)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Book Seat
-                </button>
-                <button 
-                  className="action-btn secondary"
-                  onClick={() => console.log('Track bus:', buses.find(b => b => b.id === selectedBus)?.name)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Track Bus
-                </button>
-                <button 
-                  className="action-btn secondary"
+                  className="action-btn close-only"
                   onClick={() => setSelectedBus(null)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
                 >
                   Close
                 </button>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 };

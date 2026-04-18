@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
 import '../Stylesheets/Buses.css';
 
 const Buses = () => {
   const [selectedBus, setSelectedBus] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
+  const [hoveredBus, setHoveredBus] = useState(null);
 
   const buses = [
     {
@@ -17,9 +11,9 @@ const Buses = () => {
       name: "Bus 8 (1455)",
       route: "Kohade",
       destination: "PCTE Parking",
-      driver: "Rajesh Kumar",
+      supervisor: "Campus Operations",
       status: "active",
-      capacity: 50,
+      capacity: 55,
       currentPassengers: 28,
       nextStop: "Kohade Road",
       arrivalTime: "07:30 AM",
@@ -31,9 +25,9 @@ const Buses = () => {
       name: "Bus 7 (9755)",
       route: "Veer Palace",
       destination: "PCTE Parking",
-      driver: "Amit Sharma",
+      supervisor: "Transport Manager",
       status: "active",
-      capacity: 45,
+      capacity: 60,
       currentPassengers: 32,
       nextStop: "Veer Palace Junction",
       arrivalTime: "07:50 AM",
@@ -45,9 +39,9 @@ const Buses = () => {
       name: "Bus 6 (1855)",
       route: "Police Colony",
       destination: "PCTE Parking",
-      driver: "Vikram Singh",
+      supervisor: "Fleet Manager",
       status: "active",
-      capacity: 48,
+      capacity: 60,
       currentPassengers: 35,
       nextStop: "Police Colony Gate",
       arrivalTime: "07:55 AM",
@@ -59,9 +53,9 @@ const Buses = () => {
       name: "Bus 16 (1155)",
       route: "Samrala Chowk",
       destination: "PCTE Parking",
-      driver: "Anil Verma",
+      supervisor: "Operations Head",
       status: "active",
-      capacity: 52,
+      capacity: 60,
       currentPassengers: 38,
       nextStop: "Samrala Chowk",
       arrivalTime: "08:04 AM",
@@ -73,9 +67,9 @@ const Buses = () => {
       name: "Bus 9 (9055)",
       route: "Sherpur",
       destination: "PCTE Parking",
-      driver: "Mohan Das",
+      supervisor: "Route Coordinator",
       status: "active",
-      capacity: 46,
+      capacity: 60,
       currentPassengers: 30,
       nextStop: "Sherpur Main",
       arrivalTime: "07:55 AM",
@@ -87,9 +81,9 @@ const Buses = () => {
       name: "Bus 13 (7889)",
       route: "Vasti",
       destination: "PCTE Parking",
-      driver: "Ramesh Patel",
+      supervisor: "Transport Supervisor",
       status: "active",
-      capacity: 44,
+      capacity: 60,
       currentPassengers: 28,
       nextStop: "Vasti Center",
       arrivalTime: "07:55 AM",
@@ -101,9 +95,9 @@ const Buses = () => {
       name: "Bus 12 (1555)",
       route: "Kalash Nagar",
       destination: "PCTE Parking",
-      driver: "Suresh Kumar",
+      supervisor: "Logistics Manager",
       status: "active",
-      capacity: 50,
+      capacity: 60,
       currentPassengers: 40,
       nextStop: "Kalash Nagar",
       arrivalTime: "08:00 AM",
@@ -115,9 +109,9 @@ const Buses = () => {
       name: "Bus 10 (0489)",
       route: "Kapoor",
       destination: "PCTE Parking",
-      driver: "Prakash Singh",
+      supervisor: "Operations Lead",
       status: "active",
-      capacity: 42,
+      capacity: 60,
       currentPassengers: 25,
       nextStop: "Kapoor Junction",
       arrivalTime: "07:55 AM",
@@ -129,9 +123,9 @@ const Buses = () => {
       name: "Bus 18",
       route: "Dugri",
       destination: "PCTE Parking",
-      driver: "Deepak Kumar",
+      supervisor: "Fleet Coordinator",
       status: "active",
-      capacity: 48,
+      capacity: 60,
       currentPassengers: 35,
       nextStop: "Dugri Road",
       arrivalTime: "08:05 AM",
@@ -143,13 +137,13 @@ const Buses = () => {
       name: "Bus 15 & 14 (5679, 3445)",
       route: "Jugraon",
       destination: "PCTE Parking",
-      driver: "Ravi Kumar & Arun Singh",
+      supervisor: "Transport Team Lead",
       status: "active",
-      capacity: 90,
+      capacity: 60,
       currentPassengers: 65,
       nextStop: "Jugraon Junction",
       arrivalTime: "08:00 AM",
-      features: ["WiFi", "AC", "Security", "Live Tracking"],
+      features: ["WiFi", "AC", "Live Tracking"],
       color: "#87CEEB"
     },
     {
@@ -157,9 +151,9 @@ const Buses = () => {
       name: "Bus 11 (2350)",
       route: "Gardroo",
       destination: "PCTE Parking",
-      driver: "Manoj Kumar",
+      supervisor: "Operations Manager",
       status: "active",
-      capacity: 45,
+      capacity: 60,
       currentPassengers: 30,
       nextStop: "Gardroo Main",
       arrivalTime: "08:05 AM",
@@ -171,9 +165,9 @@ const Buses = () => {
       name: "Bus 17 (8112)",
       route: "Tajpur Road / Raikot",
       destination: "PCTE Parking",
-      driver: "Sanjay Kumar",
+      supervisor: "Logistics Coordinator",
       status: "active",
-      capacity: 50,
+      capacity: 70,
       currentPassengers: 38,
       nextStop: "Tajpur Road",
       arrivalTime: "07:40 AM",
@@ -185,9 +179,9 @@ const Buses = () => {
       name: "Private - Habowal",
       route: "Habowal",
       destination: "PCTE Parking",
-      driver: "Private Operator",
+      supervisor: "Private Operations",
       status: "active",
-      capacity: 80,
+      capacity: 45,
       currentPassengers: 55,
       nextStop: "Habowal Road",
       arrivalTime: "08:15 AM",
@@ -199,9 +193,9 @@ const Buses = () => {
       name: "Private - Gill Nehar",
       route: "Gill Nehar",
       destination: "PCTE Parking",
-      driver: "Private Operator",
+      supervisor: "Private Operations",
       status: "active",
-      capacity: 75,
+      capacity: 45,
       currentPassengers: 48,
       nextStop: "Gill Nehar Road",
       arrivalTime: "08:10 AM",
@@ -216,11 +210,11 @@ const Buses = () => {
   };
 
   const handleBusHover = (busId) => {
-    setSelectedBus(busId);
+    setHoveredBus(busId);
   };
 
   const handleBusLeave = () => {
-    setSelectedBus(null);
+    setHoveredBus(null);
   };
 
   const getStatusColor = (status) => {
@@ -245,175 +239,212 @@ const Buses = () => {
     <div className="buses-page">
       {/* Animated Background */}
       <div className="buses-background">
-        <div className="floating-bus-1">🚌</div>
-        <div className="floating-bus-2">🚐</div>
-        <div className="floating-bus-3">📍</div>
+        <div className="floating-bus-1">&#128663;</div>
+        <div className="floating-bus-2">&#128663;</div>
+        <div className="floating-bus-3">&#128663;</div>
       </div>
 
       {/* Header */}
-      <motion.div 
-        className="buses-header"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-      >
-        <h1>Campus Bus Fleet</h1>
-        <p>Real-time tracking and management</p>
-      </motion.div>
+      <div className="buses-header">
+        <div className="header-content">
+          <div className="header-left">
+            <h1>Campus Bus Fleet</h1>
+            <p>Real-time tracking and management</p>
+          </div>
+          <div className="header-right">
+            <div className="emergency-contacts">
+              <span className="contact-label">Emergency:</span>
+              <a href="tel:9914293555" className="phone-number">
+                <span className="phone-icon">&#128222;</span>
+                9914293555
+              </a>
+              <a href="tel:9914534742" className="phone-number">
+                <span className="phone-icon">&#128222;</span>
+                9914534742
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Bus Cards Grid */}
       <div className="buses-grid">
-        <AnimatePresence>
-          {buses.map((bus, index) => (
-            <motion.div
-              key={bus.id}
-              className={`bus-card ${selectedBus === bus.id ? 'selected' : ''}`}
-              initial={{ 
-                opacity: 0, 
-                scale: 0.8,
-                y: 50
-              }}
-              animate={{ 
-                opacity: 1, 
-                scale: 1,
-                y: 0
-              }}
-              transition={{ 
-                duration: 0.6,
-                delay: isLoaded ? index * 0.1 : 0,
-                ease: "easeOut"
-              }}
-              whileHover={{ 
-                scale: 1.03,
-                y: -8,
-                boxShadow: "0 25px 50px rgba(79, 195, 247, 0.4)",
-                cursor: "pointer"
-              }}
-              whileTap={{ 
-                scale: 0.97,
-                transition: { duration: 0.1 }
-              }}
-              onClick={() => handleBusClick(bus)}
-              onMouseEnter={() => handleBusHover(bus.id)}
-              onMouseLeave={handleBusLeave}
-              style={{
-                borderTop: `3px solid ${bus.color}`,
-                borderLeft: selectedBus === bus.id ? `3px solid ${bus.color}` : 'none',
-                cursor: 'pointer'
-              }}
-            >
-              {/* Card Header */}
-              <div className="bus-header">
-                <div className="bus-name-section">
-                  <h3>{bus.name}</h3>
-                  <span className="bus-status">
-                    {getStatusIcon(bus.status)} {bus.status.toUpperCase()}
-                  </span>
-                </div>
-                <div className="bus-arrival">
-                  <span className="arrival-time">{bus.arrivalTime}</span>
-                  <span className="arrival-label">Next Arrival</span>
-                </div>
+        {buses.map((bus, index) => (
+          <div
+            key={bus.id}
+            className={`bus-card ${selectedBus === bus.id ? 'selected' : ''}`}
+            onClick={() => handleBusClick(bus)}
+            onMouseEnter={() => handleBusHover(bus.id)}
+            onMouseLeave={handleBusLeave}
+            style={{ 
+              borderTop: `3px solid ${bus.color}`,
+              borderLeft: selectedBus === bus.id ? `3px solid ${bus.color}` : 'none'
+            }}
+          >
+            {/* Card Header */}
+            <div className="bus-header">
+              <div className="bus-name-section">
+                <h3>{bus.name}</h3>
+                <span className="bus-status">
+                  {getStatusIcon(bus.status)} {bus.status.toUpperCase()}
+                </span>
               </div>
-
-              {/* Route Information */}
-              <div className="bus-route">
-                <div className="route-icon">🛤️</div>
-                <div className="route-info">
-                  <p className="route-start">{bus.route}</p>
-                  <div className="route-arrow">➡️</div>
-                  <p className="route-destination">{bus.destination}</p>
-                </div>
+              <div className="bus-arrival">
+                <span className="arrival-time">{bus.arrivalTime}</span>
+                <span className="arrival-label">Next Arrival</span>
               </div>
+            </div>
 
-              {/* Driver Information */}
-              <div className="bus-driver">
-                <div className="driver-avatar">
-                  <div className="avatar-placeholder">👤</div>
-                </div>
-                <div className="driver-info">
-                  <span className="driver-name">{bus.driver}</span>
-                  <span className="driver-title">Driver</span>
-                </div>
+            {/* Route Information */}
+            <div className="bus-route">
+              <div className="route-icon">&#128652;</div>
+              <div className="route-info">
+                <p className="route-start">{bus.route}</p>
+                <div className="route-arrow">&rarr;</div>
+                <p className="route-destination">{bus.destination}</p>
               </div>
+            </div>
 
-              {/* Capacity Information */}
-              <div className="bus-capacity">
-                <div className="capacity-bar">
-                  <div 
-                    className="capacity-fill"
-                    style={{
-                      width: `${(bus.currentPassengers / bus.capacity) * 100}%`,
-                      backgroundColor: bus.color
-                    }}
-                  />
-                </div>
-                <div className="capacity-text">
-                  <span className="current">{bus.currentPassengers}</span>
-                  <span className="total">/ {bus.capacity}</span>
-                  <span className="label">Passengers</span>
-                </div>
+            {/* Bus Service Information */}
+            <div className="bus-service">
+              <div className="service-info">
+                <span className="service-title">Campus Transport Service</span>
+                <span className="service-status">Active Route</span>
               </div>
+            </div>
 
-              {/* Next Stop */}
-              <div className="bus-next-stop">
-                <div className="stop-icon">📍</div>
-                <div className="stop-info">
-                  <span className="stop-name">{bus.nextStop}</span>
-                  <span className="stop-label">Next Stop</span>
-                </div>
-              </div>
-
-              {/* Features */}
-              <div className="bus-features">
-                {bus.features.map((feature, idx) => (
-                  <span key={idx} className="feature-tag">
-                    {feature}
-                  </span>
-                ))}
-              </div>
-
-              {/* Selection Indicator */}
-              {selectedBus === bus.id && (
-                <motion.div 
-                  className="selection-indicator"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.3 }}
+            {/* Capacity Information */}
+            <div className="bus-capacity">
+              <div className="capacity-bar">
+                <div 
+                  className="capacity-fill"
+                  style={{
+                    width: `${(bus.currentPassengers / bus.capacity) * 100}%`,
+                    backgroundColor: bus.color
+                  }}
                 />
-              )}
-            </motion.div>
-          ))}
-        </AnimatePresence>
+              </div>
+              <div className="capacity-text">
+                <span className="current">{bus.currentPassengers}</span>
+                <span className="total">/ {bus.capacity}</span>
+                <span className="label">Passengers</span>
+              </div>
+            </div>
+
+            {/* Next Stop */}
+            <div className="bus-next-stop">
+              <div className="stop-icon">&#128205;</div>
+              <div className="stop-info">
+                <span className="stop-name">{bus.nextStop}</span>
+                <span className="stop-label">Next Stop</span>
+              </div>
+            </div>
+
+            {/* Features */}
+            <div className="bus-features">
+              {bus.features.map((feature, idx) => (
+                <span key={idx} className="feature-tag">
+                  {feature}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Floating Particles */}
-      {[...Array(15)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="floating-particle"
-          initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            opacity: 0
-          }}
-          animate={{
-            y: [null, -100],
-            opacity: [0, 0.6, 0],
-            x: [0, Math.random() * 100 - 50]
-          }}
-          transition={{
-            duration: 8 + Math.random() * 4,
-            delay: Math.random() * 5,
-            repeat: Infinity,
-            ease: "easeOut"
-          }}
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`
-          }}
-        />
-      ))}
+      {/* Detailed Bus Information Overlay */}
+      {selectedBus && (
+        <div className="bus-details-overlay">
+          <div className="bus-details">
+            {/* Bus Details Header */}
+            <div className="details-header">
+              <div className="details-title-section">
+                <h2 style={{ color: buses.find(b => b.id === selectedBus)?.color }}>
+                  {buses.find(b => b.id === selectedBus)?.name}
+                </h2>
+                <div className="details-subtitle">
+                  Complete Bus Information
+                </div>
+              </div>
+              <button 
+                className="close-btn"
+                onClick={() => setSelectedBus(null)}
+              >
+                &times;
+              </button>
+            </div>
+
+            {/* Bus Information Summary */}
+            <div className="bus-summary">
+              <div className="summary-grid">
+                <div className="summary-item">
+                  <span className="summary-label">Bus Name</span>
+                  <span className="summary-value">{buses.find(b => b.id === selectedBus)?.name}</span>
+                </div>
+                <div className="summary-item">
+                  <span className="summary-label">Route</span>
+                  <span className="summary-value">
+                    {buses.find(b => b.id === selectedBus)?.route} to {buses.find(b => b.id === selectedBus)?.destination}
+                  </span>
+                </div>
+                <div className="summary-item">
+                  <span className="summary-label">Supervisor</span>
+                  <span className="summary-value">{buses.find(b => b.id === selectedBus)?.supervisor}</span>
+                </div>
+                <div className="summary-item">
+                  <span className="summary-label">Status</span>
+                  <span className="summary-value">{buses.find(b => b.id === selectedBus)?.status}</span>
+                </div>
+                <div className="summary-item">
+                  <span className="summary-label">Capacity</span>
+                  <span className="summary-value">
+                    {buses.find(b => b.id === selectedBus)?.currentPassengers} / {buses.find(b => b.id === selectedBus)?.capacity}
+                  </span>
+                </div>
+                <div className="summary-item">
+                  <span className="summary-label">Next Stop</span>
+                  <span className="summary-value">{buses.find(b => b.id === selectedBus)?.nextStop}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bus Features */}
+            <div className="features-section">
+              <h3 className="features-title">Bus Features</h3>
+              <div className="features-grid">
+                {buses.find(b => b.id === selectedBus)?.features.map((feature, idx) => (
+                  <div key={idx} className="feature-item">
+                    <span className="feature-icon">&#9733;</span>
+                    <span className="feature-name">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="details-actions">
+              <button 
+                className="action-btn primary"
+                onClick={() => console.log('Track bus:', buses.find(b => b.id === selectedBus)?.name)}
+              >
+                Track Bus
+              </button>
+              <button 
+                className="action-btn secondary"
+                onClick={() => console.log('View schedule:', buses.find(b => b.id === selectedBus)?.name)}
+              >
+                View Schedule
+              </button>
+              <button 
+                className="action-btn secondary"
+                onClick={() => setSelectedBus(null)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
