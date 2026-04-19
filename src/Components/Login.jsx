@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../Stylesheets/Auth.css";
 
 const Login = () => {
@@ -9,7 +10,7 @@ const Login = () => {
         {/* LEFT SIDE */}
         <div className="auth-left">
           <h2>WELCOME BACK!</h2>
-          <p>Don't have an account? <span>Sign up</span></p>
+          <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
 
           <form>
             <label>Username</label>

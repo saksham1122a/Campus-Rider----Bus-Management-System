@@ -55,12 +55,16 @@ body {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.auth-left span {
+.auth-left a {
   color: white;
   cursor: pointer;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+.auth-left a:hover {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* INPUTS */
