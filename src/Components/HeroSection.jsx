@@ -1,3 +1,4 @@
+import React from 'react';
 import '../Stylesheets/HeroSection.css';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useEffect } from 'react';
@@ -65,7 +66,12 @@ const HeroSection = () => {
               className="primary-btn"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate('/buses')}
+              onClick={(e) => {
+                e.preventDefault();
+                console.log('Get Started button clicked');
+                navigate('/buses');
+              }}
+              style={{ position: 'relative', zIndex: 10 }}
             >
               Get Started
             </motion.button>
@@ -74,7 +80,12 @@ const HeroSection = () => {
               className="secondary-btn"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate('/busroutes')}
+              onClick={(e) => {
+                e.preventDefault();
+                console.log('View Routes button clicked');
+                navigate('/busroutes');
+              }}
+              style={{ position: 'relative', zIndex: 10 }}
             >
               View Routes
             </motion.button>

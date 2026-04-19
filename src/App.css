@@ -4,18 +4,9 @@
 }
 
 /* Ensure all interactive elements work */
-a, button, .nav-item, .bus-card, .action-btn, .close-btn {
+a, button, .nav-item, .bus-card, .action-btn, .close-btn, .primary-btn, .secondary-btn {
   cursor: pointer !important;
   pointer-events: auto !important;
-}
-
-/* Fix any overlay issues */
-.hero-wrapper, .hero, .buses-page, .bus-routes-page {
-  pointer-events: none;
-}
-
-.hero-wrapper > *, .hero > *, .buses-page > *, .bus-routes-page > * {
-  pointer-events: auto;
 }
 
 /* Ensure navbar is always interactive */

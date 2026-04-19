@@ -8,6 +8,8 @@ import About from './Components/About'
 import ContactUs from './Components/ContactUs'
 import Footer from './Components/Footer'
 import OpeningAnimation from './Components/openinganimation'
+import Login from './Components/Login'
+import Signup from './Components/Signup'
 import './App.css'
 
 const App = () => {
@@ -33,6 +35,8 @@ const App = () => {
               <Footer />
             </>
         } />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/buses" element={<Buses />} />
         <Route path="/busroutes" element={<BusRoutes />} />
         <Route path="/about" element={<About />} />
