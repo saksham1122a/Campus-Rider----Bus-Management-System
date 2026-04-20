@@ -1,0 +1,109 @@
+/* LOADING SCREEN - BLUE THEME */
+div.loading-screen {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100vh !important;
+  width: 100vw !important;
+  background: linear-gradient(135deg, #021B2B, #0A3A4A, #0F5C6E) !important;
+  color: white !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 99999 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100vh !important;
+  overflow: hidden !important;
+}
+
+/* Ensure body doesn't interfere */
+body.loading-active {
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: linear-gradient(135deg, #021B2B, #0A3A4A, #0F5C6E) !important;
+}
+
+/* Override any potential white backgrounds */
+html.loading-active, 
+html.loading-active body,
+html.loading-active #root,
+html.loading-active #root > div {
+  background: linear-gradient(135deg, #021B2B, #0A3A4A, #0F5C6E) !important;
+}
+
+/* Force override any element that might show white */
+div.loading-screen,
+div.loading-screen * {
+  background-color: transparent !important;
+  background: linear-gradient(135deg, #021B2B, #0A3A4A, #0F5C6E) !important;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(79, 195, 247, 0.3);
+  border-top: 4px solid #4FC3F7;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 24px;
+}
+
+.loading-screen h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #4FC3F7;
+  text-align: center;
+}
+
+.loading-screen p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  max-width: 300px;
+  margin: 0;
+}
+
+@keyframes spin {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
+
+/* Optional: Add floating animation for better UX */
+.loading-screen::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(79, 195, 247, 0.15), transparent);
+  border-radius: 50%;
+  top: 10%;
+  left: 15%;
+  animation: floatBg 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floatBg {
+  0% { 
+    transform: translateY(0) scale(1); 
+    opacity: 0.3;
+  }
+  50% { 
+    transform: translateY(-30px) scale(1.1); 
+    opacity: 0.6;
+  }
+  100% { 
+    transform: translateY(0) scale(1); 
+    opacity: 0.3;
+  }
+}

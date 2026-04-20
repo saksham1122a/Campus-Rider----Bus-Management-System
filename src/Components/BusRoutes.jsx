@@ -246,12 +246,12 @@ const BusRoutes = () => {
         </p>
       </div>
 
-      {/* Bus Cards Grid */}
-      <div className="buses-grid">
+      {/* Interactive Bus Information Summary */}
+      <div className="bus-summary-grid">
         {buses.map((bus, index) => (
-          <div
+          <div 
             key={bus.id}
-            className={`bus-card ${selectedBus === bus.id ? 'selected' : ''} ${hoveredBus === bus.id ? 'hovered' : ''}`}
+            className={`bus-summary-card ${selectedBus === bus.id ? 'selected' : ''} ${hoveredBus === bus.id ? 'hovered' : ''}`}
             onClick={() => handleBusClick(bus)}
             onMouseEnter={() => handleBusHover(bus.id)}
             onMouseLeave={handleBusLeave}
@@ -262,163 +262,239 @@ const BusRoutes = () => {
               animationDelay: `${index * 0.1}s`
             }}
           >
-            {/* Card Header */}
-            <div className="bus-header">
-              <h3 className="bus-name" style={{ color: bus.color }}>{bus.name}</h3>
+            <div className="summary-header">
+              <h3 className="summary-bus-name" style={{ color: bus.color }}>{bus.name}</h3>
+              <span className="summary-bus-number">
+                {bus.id === 1 ? '1455' : 
+                 bus.id === 2 ? '9755' :
+                 bus.id === 3 ? '1855' :
+                 bus.id === 4 ? '1155' :
+                 bus.id === 5 ? '9055' :
+                 bus.id === 6 ? '7889' :
+                 bus.id === 7 ? '1555' :
+                 bus.id === 8 ? '0489' :
+                 bus.id === 9 ? '18' :
+                 bus.id === 10 ? '5679, 3445' :
+                 bus.id === 11 ? '2350' :
+                 bus.id === 12 ? '8112' :
+                 bus.id === 13 ? 'Habowal' :
+                 bus.id === 14 ? 'Gill Nehar' : ''}
+              </span>
+            </div>
+            <div className="summary-info">
+              <div className="summary-item">
+                <span className="summary-label">Route</span>
+                <span className="summary-value">
+                  {bus.stops[0].name} to {bus.stops[bus.stops.length - 1].name}
+                </span>
+              </div>
+              <div className="summary-item">
+                <span className="summary-label">Duration</span>
+                <span className="summary-value">
+                  {bus.stops[0].time} - {bus.stops[bus.stops.length - 1].time}
+                </span>
+              </div>
+              <div className="summary-item">
+                <span className="summary-label">Total Stops</span>
+                <span className="summary-value">{bus.stops.length}</span>
+              </div>
             </div>
             
-            {/* Bus Information */}
-            <div className="bus-info">
-              <div className="info-row">
-                <div className="info-item">
-                  <span className="info-label">Route</span>
-                  <span className="info-value">
-                    {bus.stops[0].name} to {bus.stops[bus.stops.length - 1].name}
-                  </span>
+            {/* Animated Route Visualization */}
+            <div className="route-visualization">
+              <div className="route-path">
+                <div className="route-point start">
+                  <span className="point-icon">📍</span>
+                  <span className="point-label">{bus.stops[0].name}</span>
                 </div>
-                <div className="info-item">
-                  <span className="info-label">Duration</span>
-                  <span className="info-value">
-                    {bus.stops[0].time} - {bus.stops[bus.stops.length - 1].time}
-                  </span>
-                </div>
-              </div>
-              <div className="info-row">
-                <div className="info-item">
-                  <span className="info-label">Bus Number</span>
-                  <span className="info-value">{bus.id === 1 ? '1455' : 
-                    bus.id === 2 ? '9755' :
-                    bus.id === 3 ? '1855' :
-                    bus.id === 4 ? '1155' :
-                    bus.id === 5 ? '9055' :
-                    bus.id === 6 ? '7889' :
-                    bus.id === 7 ? '1555' :
-                    bus.id === 8 ? '0489' :
-                    bus.id === 9 ? '18' :
-                    bus.id === 10 ? '5679, 3445' :
-                    bus.id === 11 ? '2350' :
-                    bus.id === 12 ? '8112' :
-                    bus.id === 13 ? 'Habowal' :
-                    bus.id === 14 ? 'Gill Nehar' : ''}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Total Stops</span>
-                  <span className="info-value">{bus.stops.length}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Route Preview */}
-            <div className="route-preview">
-              <div className="preview-line"></div>
-              <div className="preview-stops">
-                <div className="preview-stop start">
-                  <span className="preview-icon">🚏</span>
-                  <span>{bus.stops[0].name}</span>
-                </div>
-                <div className="preview-dots">
-                  {bus.stops.slice(1, -1).map((stop, idx) => (
-                    <span key={idx} className="preview-dot"></span>
-                  ))}
-                </div>
-                <div className="preview-stop end">
-                  <span className="preview-icon">🎓</span>
-                  <span>{bus.stops[bus.stops.length - 1].name}</span>
-                </div>
-              </div>
-            </div>
-
-            
-            {/* Hover Preview */}
-            {hoveredBus === bus.id && (
-              <div className="hover-preview">
-                <div className="preview-content">
-                  <h4>Quick Preview</h4>
-                  <div className="preview-details">
-                    <p><strong>Driver:</strong> {bus.driver}</p>
-                    <p><strong>Route:</strong> {bus.stops[0].name} to {bus.stops[bus.stops.length - 1].name}</p>
-                    <p><strong>Time:</strong> {bus.stops[0].time} - {bus.stops[bus.stops.length - 1].time}</p>
+                <div className="route-line">
+                  <div className="animated-dots">
+                    {[...Array(3)].map((_, i) => (
+                      <span key={i} className="dot" style={{ animationDelay: `${i * 0.2}s` }}></span>
+                    ))}
                   </div>
                 </div>
+                <div className="route-point end">
+                  <span className="point-icon">🎯</span>
+                  <span className="point-label">{bus.stops[bus.stops.length - 1].name}</span>
+                </div>
               </div>
-            )}
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Detailed Route Information */}
+      {/* Enhanced Detailed Route Information */}
       {selectedBus && (
         <div className="route-details-overlay">
-          <div className="route-details" style={{ animationDelay: '0.2s' }}>
-              {/* Route Header */}
-              <div className="route-header">
+          <div className="route-details enhanced" style={{ animationDelay: '0.2s' }}>
+              {/* Interactive Route Header */}
+              <div className="route-header enhanced">
                 <div className="route-title-section">
-                  <h2 style={{ color: buses.find(b => b.id === selectedBus)?.color }}>
-                    {buses.find(b => b.id === selectedBus)?.name}
-                  </h2>
-                  <div className="route-subtitle">
-                    Complete Route Information
+                  <div className="bus-identity">
+                    <div className="bus-icon-large" style={{ backgroundColor: buses.find(b => b.id === selectedBus)?.color }}>
+                      <span>🚌</span>
+                    </div>
+                    <div className="bus-info-text">
+                      <h2 style={{ color: buses.find(b => b.id === selectedBus)?.color }}>
+                        {buses.find(b => b.id === selectedBus)?.name}
+                      </h2>
+                      <div className="route-subtitle">
+                        Interactive Route Details
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <button 
-                  className="close-btn"
+                  className="close-btn enhanced"
                   onClick={() => setSelectedBus(null)}
                 >
-                  ×
+                  <span className="close-icon">×</span>
                 </button>
               </div>
 
-              {/* Bus Details Summary */}
-              <div className="bus-details-summary">
-                <div className="summary-grid">
-                  <div className="summary-item">
-                    <span className="summary-label">Bus Number</span>
-                    <span className="summary-value">{buses.find(b => b.id === selectedBus)?.name}</span>
+              {/* Enhanced Bus Details Summary */}
+              <div className="bus-details-summary enhanced">
+                <div className="info-cards-grid">
+                  <div className="info-card primary">
+                    <div className="info-card-header">
+                      <span className="info-icon">🚌</span>
+                      <span className="info-title">Bus Details</span>
+                    </div>
+                    <div className="info-card-content">
+                      <div className="info-row">
+                        <span className="info-label">Number:</span>
+                        <span className="info-value">{buses.find(b => b.id === selectedBus)?.name}</span>
+                      </div>
+                      <div className="info-row">
+                        <span className="info-label">Status:</span>
+                        <span className="info-value">Active</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="summary-item">
-                    <span className="summary-label">Driver</span>
-                    <span className="summary-value">{buses.find(b => b.id === selectedBus)?.driver}</span>
+                  
+                  <div className="info-card secondary">
+                    <div className="info-card-header">
+                      <span className="info-icon">🛣️</span>
+                      <span className="info-title">Route Info</span>
+                    </div>
+                    <div className="info-card-content">
+                      <div className="info-row">
+                        <span className="info-label">From:</span>
+                        <span className="info-value">{buses.find(b => b.id === selectedBus)?.stops[0].name}</span>
+                      </div>
+                      <div className="info-row">
+                        <span className="info-label">To:</span>
+                        <span className="info-value">{buses.find(b => b.id === selectedBus)?.stops[buses.find(b => b.id === selectedBus).stops.length - 1].name}</span>
+                      </div>
+                      <div className="info-row">
+                        <span className="info-label">Stops:</span>
+                        <span className="info-value">{buses.find(b => b.id === selectedBus)?.stops.length}</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="summary-item">
-                    <span className="summary-label">Route</span>
-                    <span className="summary-value">
-                      {buses.find(b => b.id === selectedBus)?.stops[0].name} to {buses.find(b => b.id === selectedBus)?.stops[buses.find(b => b.id === selectedBus).stops.length - 1].name}
-                    </span>
-                  </div>
-                  <div className="summary-item">
-                    <span className="summary-label">Duration</span>
-                    <span className="summary-value">
-                      {buses.find(b => b.id === selectedBus)?.stops[0].time} - {buses.find(b => b.id === selectedBus)?.stops[buses.find(b => b.id === selectedBus).stops.length - 1].time}
-                    </span>
-                  </div>
-                  <div className="summary-item">
-                    <span className="summary-label">Total Stops</span>
-                    <span className="summary-value">{buses.find(b => b.id === selectedBus)?.stops.length}</span>
+                  
+                  <div className="info-card accent">
+                    <div className="info-card-header">
+                      <span className="info-icon">⏰</span>
+                      <span className="info-title">Schedule</span>
+                    </div>
+                    <div className="info-card-content">
+                      <div className="info-row">
+                        <span className="info-label">Start:</span>
+                        <span className="info-value">{buses.find(b => b.id === selectedBus)?.stops[0].time}</span>
+                      </div>
+                      <div className="info-row">
+                        <span className="info-label">End:</span>
+                        <span className="info-value">{buses.find(b => b.id === selectedBus)?.stops[buses.find(b => b.id === selectedBus).stops.length - 1].time}</span>
+                      </div>
+                      <div className="info-row">
+                        <span className="info-label">Duration:</span>
+                        <span className="info-value">
+                          {(() => {
+                            const start = buses.find(b => b.id === selectedBus)?.stops[0].time;
+                            const end = buses.find(b => b.id === selectedBus)?.stops[buses.find(b => b.id === selectedBus).stops.length - 1].time;
+                            if (start && end) {
+                              const [startHour, startMin] = start.split(':').map(t => parseInt(t));
+                              const [endHour, endMin] = end.split(':').map(t => parseInt(t));
+                              const duration = (endHour * 60 + endMin) - (startHour * 60 + startMin);
+                              const hours = Math.floor(duration / 60);
+                              const mins = duration % 60;
+                              return `${hours}h ${mins}m`;
+                            }
+                            return 'N/A';
+                          })()}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Detailed Route Stops */}
-              <div className="route-stops">
-                <h3 className="stops-title">Route Stops</h3>
-                <div className="stops-timeline">
-                  {buses.find(b => b.id === selectedBus)?.stops.map((stop, index) => (
-                    <div key={index} className="stop-item">
-                      <div className="stop-marker">
-                        <div className="stop-icon">
-                          {getStopIcon(stop.type)}
-                        </div>
-                        <div className="stop-type">{getStopTypeLabel(stop.type)}</div>
+              {/* Creative Journey Visualization */}
+              <div className="journey-visualization">
+                <h3 className="journey-title">Journey Experience</h3>
+                <div className="journey-path">
+                  <div className="journey-start">
+                    <div className="location-marker start">
+                      <span className="location-icon">🏁</span>
+                      <div className="location-info">
+                        <span className="location-name">{buses.find(b => b.id === selectedBus)?.stops[0].name}</span>
+                        <span className="location-time">{buses.find(b => b.id === selectedBus)?.stops[0].time}</span>
                       </div>
-                      <div className="stop-content">
-                        <div className="stop-name">{stop.name}</div>
-                        <div className="stop-time">{stop.time}</div>
-                      </div>
-                      {index < buses.find(b => b.id === selectedBus).stops.length - 1 && (
-                        <div className="stop-connector" />
-                      )}
                     </div>
-                  ))}
+                  </div>
+                  
+                  <div className="journey-progress">
+                    <div className="progress-line">
+                      <div className="progress-animation">
+                        {[...Array(5)].map((_, i) => (
+                          <div key={i} className="progress-node" style={{ animationDelay: `${i * 0.3}s` }}>
+                            <div className="node-inner"></div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="journey-end">
+                    <div className="location-marker end">
+                      <span className="location-icon">🎓</span>
+                      <div className="location-info">
+                        <span className="location-name">{buses.find(b => b.id === selectedBus)?.stops[buses.find(b => b.id === selectedBus).stops.length - 1].name}</span>
+                        <span className="location-time">{buses.find(b => b.id === selectedBus)?.stops[buses.find(b => b.id === selectedBus).stops.length - 1].time}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Journey Stats */}
+                <div className="journey-stats">
+                  <div className="stat-card">
+                    <div className="stat-icon">⏱️</div>
+                    <div className="stat-content">
+                      <span className="stat-value">35m</span>
+                      <span className="stat-label">Total Duration</span>
+                    </div>
+                  </div>
+                  
+                  <div className="stat-card">
+                    <div className="stat-icon">🛑</div>
+                    <div className="stat-content">
+                      <span className="stat-value">{buses.find(b => b.id === selectedBus)?.stops.length}</span>
+                      <span className="stat-label">Total Stops</span>
+                    </div>
+                  </div>
+                  
+                  <div className="stat-card">
+                    <div className="stat-icon">📍</div>
+                    <div className="stat-content">
+                      <span className="stat-value">
+                        {buses.find(b => b.id === selectedBus)?.stops[Math.floor(buses.find(b => b.id === selectedBus).stops.length / 2)]?.name || 'Midpoint'}
+                      </span>
+                      <span className="stat-label">Midpoint</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
