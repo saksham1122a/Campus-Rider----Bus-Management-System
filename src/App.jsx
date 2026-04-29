@@ -7,15 +7,16 @@ import BusRoutes from './Components/BusRoutes'
 import About from './Components/About'
 import ContactUs from './Components/ContactUs'
 import Footer from './Components/Footer'
-import OpeningAnimation from './Components/openinganimation'
 import Login from './Components/Login'
 import Signup from './Components/Signup'
 import ProtectedRoute from './Components/ProtectedRoute'
 import UserDashboard from './User/UserDashboard'
 import MyProfile from './User/MyProfile'
 import MyBus from './User/MyBus'
+import Profile from './User/Profile'
 import AdminDashboard from './admin/AdminDashboard'
 import LoadingScreen from './Components/LoadingScreen'
+import ProtectedLayout from './Components/ProtectedLayout'
 import { BusDataProvider } from './contexts/BusDataContext'
 
 import './App.css'
@@ -98,12 +99,37 @@ const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
+  const updateUser = async (userData) => {
+    try {
+      // Update local user state
+      setUser(prevUser => ({ ...prevUser, ...userData }));
+      
+      // Optionally update on backend
+      const token = localStorage.getItem("token");
+      if (token) {
+        await fetch("http://localhost:5000/api/auth/update-profile", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(userData)
+        });
+      }
+    } catch (error) {
+      console.error("Failed to update user on backend:", error);
+      // Still update local state even if backend fails
+      setUser(prevUser => ({ ...prevUser, ...userData }));
+    }
+  };
+
   const value = {
     isAuthenticated,
     user,
     loading,
     handleLogin,
-    handleLogout
+    handleLogout,
+    updateUser
   };
 
   return (
@@ -114,56 +140,78 @@ const AuthProvider = ({ children }) => {
 };
 
 const App = () => {
-  const [showOpening, setShowOpening] = React.useState(true);
-
-  const handleOpeningComplete = () => {
-    setShowOpening(false);
-  };
-
   return (
     <BrowserRouter>
       <BusDataProvider>
         <AuthProvider>
-          {!showOpening && window.location.pathname !== '/dashboard' && <Navbar />}
           <Routes>
             <Route path="/" element={
-              showOpening ? 
-                <OpeningAnimation onComplete={handleOpeningComplete} /> : 
-                <>
-                  <HeroSection />
-                  <Buses />
-                  <BusRoutes />
-                  <About />
-                  <ContactUs />
-                  <Footer />
-                </>
+              <>
+                <Navbar />
+                <HeroSection />
+                <Buses />
+                <BusRoutes />
+                <About />
+                <ContactUs />
+                <Footer />
+              </>
             } />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/dashboard" element={
-              <ProtectedRoute>
+              <ProtectedLayout>
                 <UserDashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/profile" element={
-              <ProtectedRoute>
-                <MyProfile />
-              </ProtectedRoute>
+              </ProtectedLayout>
             } />
             <Route path="/mybus" element={
-              <ProtectedRoute>
+              <ProtectedLayout>
                 <MyBus />
-              </ProtectedRoute>
+              </ProtectedLayout>
+            } />
+            <Route path="/routes" element={
+              <ProtectedLayout>
+                <UserDashboard />
+              </ProtectedLayout>
+            } />
+            <Route path="/schedule" element={
+              <ProtectedLayout>
+                <UserDashboard />
+              </ProtectedLayout>
+            } />
+            <Route path="/profile" element={
+              <ProtectedLayout>
+                <Profile />
+              </ProtectedLayout>
             } />
             <Route path="/admin" element={
-              <ProtectedRoute>
+              <ProtectedLayout>
                 <AdminDashboard />
-              </ProtectedRoute>
+              </ProtectedLayout>
             } />
-            <Route path="/buses" element={<Buses />} />
-            <Route path="/busroutes" element={<BusRoutes />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/buses" element={
+              <>
+                <Navbar />
+                <Buses />
+              </>
+            } />
+            <Route path="/busroutes" element={
+              <>
+                <Navbar />
+                <BusRoutes />
+              </>
+            } />
+            <Route path="/about" element={
+              <>
+                <Navbar />
+                <About />
+              </>
+            } />
+            <Route path="/contact" element={
+              <>
+                <Navbar />
+                <ContactUs />
+              </>
+            } />
           </Routes>
         </AuthProvider>
       </BusDataProvider>

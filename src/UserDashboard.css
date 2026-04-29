@@ -1,0 +1,388 @@
+/* MINIMAL PERFORMANCE CSS - ULTRA FAST */
+.dashboard-container {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0077b6 0%, #00bcd4 50%, #009688 100%);
+  color: #1f2937;
+  min-height: 100vh;
+  display: flex;
+}
+
+/* SIDEBAR - MINIMAL */
+.sidebar {
+  width: 280px;
+  background: linear-gradient(135deg, rgba(0, 119, 182, 0.9), rgba(0, 188, 212, 0.8));
+  border-right: 2px solid rgba(79, 195, 247, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.closed {
+  width: 80px;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  font-size: 24px;
+  color: white;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+}
+
+.sidebar.closed .logo-text {
+  display: none;
+}
+
+.sidebar button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.sidebar button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.sidebar-user {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar.closed .user-info {
+  display: none;
+}
+
+.user-info h4 {
+  color: white;
+  font-weight: 600;
+  margin: 0 0 2px 0;
+  font-size: 14px;
+}
+
+.user-info p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  margin: 0;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-list li {
+  margin: 0;
+}
+
+.nav-list a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav-list a:hover,
+.nav-list a.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.nav-list a.active {
+  background: rgba(0, 119, 118, 0.2);
+  border-left: 4px solid #0077b6;
+}
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-footer button {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sidebar-footer button:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+/* MAIN CONTENT */
+.main-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.content-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.content-section h2 {
+  color: #1f2937;
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* STATS */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(79, 195, 247, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-icon {
+  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  border-radius: 12px;
+}
+
+.stat-info h3 {
+  color: #1f2937;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.stat-info p {
+  color: #6b7280;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* BUS INFO */
+.bus-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  background: rgba(59, 130, 246, 0.05);
+  border-radius: 8px;
+}
+
+.info-label {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.info-value {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* PASSENGERS */
+.passengers-section h3 {
+  color: #1f2937;
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.passenger-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.passenger-item {
+  padding: 12px;
+  background: rgba(16, 185, 129, 0.05);
+  border-radius: 8px;
+  color: #1f2937;
+}
+
+.passenger-more {
+  padding: 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 8px;
+  color: #10b981;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* PROFILE */
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+}
+
+.profile-info h3 {
+  color: #1f2937;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.profile-info p {
+  color: #6b7280;
+  margin: 0 0 16px 0;
+}
+
+.profile-info button {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* LOADING */
+.loading-screen,
+.error-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.loading-spinner {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.error-screen h3 {
+  color: #ef4444;
+  margin-bottom: 8px;
+}
+
+.error-screen button {
+  padding: 12px 24px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar.closed {
+    transform: translateX(-100%);
+  }
+  
+  .main-content {
+    margin-left: 0;
+    padding: 16px;
+  }
+  
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .bus-info {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}

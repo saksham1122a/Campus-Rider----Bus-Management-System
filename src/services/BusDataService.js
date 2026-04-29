@@ -358,7 +358,7 @@ class BusDataService {
 
     this.realTimeUpdates = setInterval(() => {
       this.simulateRealTimeUpdate();
-    }, 5000); // Update every 5 seconds
+    }, 30000); // Update every 30 seconds for maximum performance
   }
 
   // Stop real-time updates
