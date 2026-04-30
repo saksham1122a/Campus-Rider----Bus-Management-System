@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../App';
 import { useBusData } from '../contexts/BusDataContext';
 import MyBus from './MyBus';
+import RouteDetails from './RouteDetails';
+import Schedule from './Schedule';
 import './UserDashboard.css';
 
 const UserDashboard = () => {
@@ -151,22 +153,34 @@ const UserDashboard = () => {
         <nav className="sidebar-nav">
           <ul className="nav-list">
             <li className={activeSection === 'overview' ? 'active' : ''}>
-              <Link to="/dashboard">
+              <button onClick={() => setActiveSection('overview')} className="nav-link">
                 <span>📊</span>
                 <span>Overview</span>
-              </Link>
+              </button>
             </li>
             <li className={activeSection === 'mybus' ? 'active' : ''}>
-              <Link to="/mybus">
+              <button onClick={() => setActiveSection('mybus')} className="nav-link">
                 <span>🚌</span>
                 <span>My Bus</span>
-              </Link>
+              </button>
+            </li>
+            <li className={activeSection === 'routes' ? 'active' : ''}>
+              <button onClick={() => setActiveSection('routes')} className="nav-link">
+                <span>🗺️</span>
+                <span>Routes</span>
+              </button>
+            </li>
+            <li className={activeSection === 'schedule' ? 'active' : ''}>
+              <button onClick={() => setActiveSection('schedule')} className="nav-link">
+                <span>⏰</span>
+                <span>Schedule</span>
+              </button>
             </li>
             <li className={activeSection === 'profile' ? 'active' : ''}>
-              <Link to="/profile">
+              <button onClick={() => setActiveSection('profile')} className="nav-link">
                 <span>👤</span>
                 <span>Profile</span>
-              </Link>
+              </button>
             </li>
           </ul>
         </nav>
@@ -179,30 +193,21 @@ const UserDashboard = () => {
       {/* Main Content */}
       <main className="main-content">
         {/* Top Right Profile Avatar */}
-        <div 
-          className="dashboard-profile-section"
-          style={{
-            position: 'fixed',
-            top: '80px',
-            right: '40px',
-            zIndex: 9999,
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            padding: '10px',
-            borderRadius: '10px',
-            border: '2px solid red'
-          }}
-        >
-          <div style={{ color: 'white', fontSize: '12px', marginBottom: '5px' }}>
-            DEBUG: authUser = {authUser ? 'EXISTS' : 'NULL'}
-          </div>
-          {authUser ? (
+        {authUser && (
+          <div 
+            style={{
+              position: 'fixed',
+              top: '80px',
+              right: '40px',
+              zIndex: 9999
+            }}
+          >
             <div 
-              className="profile-avatar" 
               onClick={handleProfileClick} 
               title="Profile"
               style={{
-                width: '60px',
-                height: '60px',
+                width: '50px',
+                height: '50px',
                 borderRadius: '50%',
                 background: 'linear-gradient(135deg, #4FC3F7, #1F8FA3)',
                 display: 'flex',
@@ -215,11 +220,10 @@ const UserDashboard = () => {
               }}
             >
               <span 
-                className="avatar-text" 
                 style={{
                   color: 'white',
                   fontWeight: '700',
-                  fontSize: '20px',
+                  fontSize: '18px',
                   textTransform: 'uppercase',
                   letterSpacing: '1px'
                 }}
@@ -227,55 +231,64 @@ const UserDashboard = () => {
                 {getUserInitials()}
               </span>
             </div>
-          ) : (
-            <div style={{ color: 'red', fontSize: '14px', fontWeight: 'bold' }}>
-              NO USER LOGGED IN
-            </div>
-          )}
-          
-          {showProfileMenu && authUser && (
-            <div 
-              className="profile-menu"
-              style={{
-                position: 'absolute',
-                top: '70px',
-                right: '0',
-                background: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(20px)',
-                borderRadius: '16px',
-                boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                minWidth: '250px',
-                zIndex: 1000
-              }}
-            >
-              <div className="profile-info" style={{ padding: '20px', background: 'rgba(79, 195, 247, 0.1)' }}>
-                <div className="profile-name" style={{ fontSize: '16px', fontWeight: '600', color: '#0A3A4A', marginBottom: '4px' }}>
-                  {authUser?.name || 'User'}
+            
+            {showProfileMenu && (
+              <div 
+                style={{
+                  position: 'absolute',
+                  top: '60px',
+                  right: '0',
+                  background: 'white',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+                  minWidth: '200px',
+                  zIndex: 1000,
+                  border: '1px solid #e5e7eb'
+                }}
+              >
+                <div style={{ padding: '12px', borderBottom: '1px solid #e5e7eb' }}>
+                  <div style={{ fontSize: '14px', fontWeight: '600', color: '#111827', marginBottom: '2px' }}>
+                    {authUser?.name || 'User'}
+                  </div>
+                  <div style={{ fontSize: '12px', color: '#6b7280' }}>
+                    {authUser?.email || 'user@example.com'}
+                  </div>
                 </div>
-                <div className="profile-email" style={{ fontSize: '14px', color: 'rgba(10, 58, 74, 0.7)' }}>
-                  {authUser?.email || 'user@example.com'}
-                </div>
+                <button 
+                  onClick={handleProfileUpdate}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    border: 'none',
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    color: '#374151',
+                    textAlign: 'left',
+                    borderBottom: '1px solid #f3f4f6'
+                  }}
+                >
+                  Update Profile
+                </button>
+                <button 
+                  onClick={handleLogout}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    border: 'none',
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    color: '#dc2626',
+                    textAlign: 'left'
+                  }}
+                >
+                  Logout
+                </button>
               </div>
-              <div className="profile-divider" style={{ height: '1px', background: 'rgba(79, 195, 247, 0.2)', margin: '0 10px' }}></div>
-              <button className="profile-menu-item" onClick={handleProfileUpdate} style={{ width: '100%', padding: '15px 20px', border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '14px', fontWeight: '500', color: '#0A3A4A', transition: 'all 0.3s ease', textAlign: 'left' }}>
-                <svg viewBox="0 0 24 24" className="menu-icon" style={{ width: '18px', height: '18px', stroke: 'currentColor', fill: 'none', strokeWidth: '2', flexShrink: 0 }}>
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                  <circle cx="12" cy="7" r="4"/>
-                </svg>
-                Update Profile
-              </button>
-              <button className="profile-menu-item logout-item" onClick={handleLogout} style={{ width: '100%', padding: '15px 20px', border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '14px', fontWeight: '500', color: '#0A3A4A', transition: 'all 0.3s ease', textAlign: 'left' }}>
-                <svg viewBox="0 0 24 24" className="menu-icon" style={{ width: '18px', height: '18px', stroke: 'currentColor', fill: 'none', strokeWidth: '2', flexShrink: 0 }}>
-                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                  <polyline points="16,17 21,12 16,7"/>
-                  <line x1="21" y1="12" x2="9" y2="12"/>
-                </svg>
-                Logout
-              </button>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
         {activeSection === 'overview' && (
           <div className="simple-section">
             <h2>Dashboard Overview</h2>
@@ -297,7 +310,8 @@ const UserDashboard = () => {
         )}
 
         {activeSection === 'mybus' && <MyBus />}
-
+        {activeSection === 'routes' && <RouteDetails />}
+        {activeSection === 'schedule' && <Schedule />}
         {activeSection === 'profile' && (
           <div className="simple-section">
             <h2>My Profile</h2>

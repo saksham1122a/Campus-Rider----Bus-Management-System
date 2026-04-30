@@ -14,6 +14,7 @@ import UserDashboard from './User/UserDashboard'
 import MyProfile from './User/MyProfile'
 import MyBus from './User/MyBus'
 import Profile from './User/Profile'
+import RouteDetails from './User/RouteDetails'
 import AdminDashboard from './admin/AdminDashboard'
 import LoadingScreen from './Components/LoadingScreen'
 import ProtectedLayout from './Components/ProtectedLayout'
@@ -204,7 +205,7 @@ const App = () => {
             } />
             <Route path="/routes" element={
               <ProtectedLayout>
-                <UserDashboard />
+                <RouteDetails />
               </ProtectedLayout>
             } />
             <Route path="/schedule" element={

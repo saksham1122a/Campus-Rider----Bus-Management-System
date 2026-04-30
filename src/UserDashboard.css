@@ -110,7 +110,8 @@
   margin: 0;
 }
 
-.nav-list a {
+.nav-list a,
+.nav-list .nav-link {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -119,14 +120,22 @@
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
 }
 
+.nav-list .nav-link:hover,
 .nav-list a:hover,
+.nav-list .nav-link.active,
 .nav-list a.active {
   background: rgba(255, 255, 255, 0.1);
   color: white;
 }
 
+.nav-list .nav-link.active,
 .nav-list a.active {
   background: rgba(0, 119, 118, 0.2);
   border-left: 4px solid #0077b6;
