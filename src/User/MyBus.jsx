@@ -5,33 +5,42 @@ import './MyBus.css';
 
 const MyBus = () => {
   const { user: authUser } = useAuth();
-  const { getUserBusInfo, loading, error } = useBusData();
-  const [busData, setBusData] = useState(null);
+  const { busData, loading, error, getUserBusInfo } = useBusData();
+  const [userBusData, setUserBusData] = useState(null);
 
   useEffect(() => {
-    if (!authUser || !authUser.busNumber) {
+    console.log('MyBus: authUser:', authUser);
+    console.log('MyBus: busData from context:', busData);
+    
+    if (!authUser) {
       console.log('User data not available yet');
       return;
     }
 
-    const userBusInfo = getUserBusInfo(authUser.busNumber);
+    // Get user's assigned bus (for demo, assign bus 1 if user has busNumber, otherwise bus 2)
+    const userBusNumber = authUser.busNumber || 1;
+    const assignedBus = busData.find(bus => bus.id === userBusNumber) || busData[0];
     
-    if (userBusInfo) {
-      setBusData({
-        busNumber: userBusInfo.bus?.busNumber || authUser.busNumber,
-        busName: userBusInfo.bus?.name || `Campus Rider`,
-        driver: userBusInfo.bus?.driver || 'Rajesh Kumar',
-        capacity: userBusInfo.bus?.capacity || 50,
-        passengers: userBusInfo.passengers?.length || 32,
-        currentLocation: userBusInfo.bus?.currentLocation || 'Kohade Bus Stand',
-        nextStop: userBusInfo.bus?.nextStop || 'Main Gate',
-        route: userBusInfo.bus?.route || 'Kohade → College',
-        status: userBusInfo.bus?.status || 'On Time',
-        busType: userBusInfo.bus?.busType || 'AC',
-        registrationNumber: userBusInfo.bus?.registrationNumber || 'PB10-1455'
+    console.log('MyBus: assignedBus:', assignedBus);
+    
+    if (assignedBus) {
+      setUserBusData({
+        busNumber: assignedBus.id,
+        busName: assignedBus.name,
+        driver: assignedBus.driver,
+        capacity: assignedBus.capacity,
+        passengers: assignedBus.currentPassengers,
+        currentLocation: assignedBus.nextStop || 'Campus Route',
+        nextStop: assignedBus.nextStop,
+        route: `${assignedBus.route} → ${assignedBus.destination}`,
+        status: assignedBus.status === 'active' ? 'On Time' : 'Delayed',
+        busType: assignedBus.features?.includes('AC') ? 'AC' : 'Non-AC',
+        registrationNumber: assignedBus.name?.match(/\(([^)]+)\)/)?.[1] || 'PB10-1455',
+        arrivalTime: assignedBus.arrivalTime,
+        features: assignedBus.features || []
       });
     }
-  }, [authUser, getUserBusInfo]);
+  }, [authUser, busData]);
 
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
@@ -51,13 +60,41 @@ const MyBus = () => {
     }
   };
 
-  if (loading) return <div className="loading-container"><h2>Loading bus information...</h2></div>;
-  if (error) return <div className="error-container"><h2>Error loading bus data</h2></div>;
-  if (!busData) return <div className="no-data-container"><h2>No bus data available</h2></div>;
+  if (loading) {
+    return (
+      <div className="my-bus-page">
+        <div className="loading-state">
+          <div className="loading-spinner">🚌</div>
+          <p>Loading bus information...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="my-bus-page">
+        <div className="error-state">
+          <div className="error-icon">⚠️</div>
+          <p>Error loading bus information: {error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!userBusData) {
+    return (
+      <div className="my-bus-page">
+        <div className="error-state">
+          <div className="error-icon">🚌</div>
+          <p>No bus data available</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="my-bus-container">
-      {/* Page Title */}
+    <div className="my-bus-page">
       <div className="page-header">
         <h1 className="page-title">My Bus</h1>
         <p className="page-subtitle">Bus Details</p>
@@ -71,13 +108,13 @@ const MyBus = () => {
               🚌
             </div>
             <div className="bus-details">
-              <h2 className="bus-name">{busData.busName}</h2>
-              <div className="bus-number">Bus No: {busData.busNumber}</div>
-              <div className="bus-route">{busData.route}</div>
+              <h2 className="bus-name">{userBusData.busName}</h2>
+              <div className="bus-number">Bus No: {userBusData.busNumber}</div>
+              <div className="bus-route">{userBusData.route}</div>
               <div className="bus-status-indicator">
-                <span className="status-icon">{getStatusIcon(busData.status)}</span>
-                <span className="status-text" style={{ color: getStatusColor(busData.status) }}>
-                  {busData.status}
+                <span className="status-icon">{getStatusIcon(userBusData.status)}</span>
+                <span className="status-text" style={{ color: getStatusColor(userBusData.status) }}>
+                  {userBusData.status}
                 </span>
               </div>
             </div>

@@ -1,52 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../App';
-import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../Stylesheets/Navbar.css';
 
 const Navbar = () => {
-  const { isAuthenticated, user, logout } = useAuth();
-  const navigate = useNavigate();
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const profileMenuRef = useRef(null);
-
-  // Close profile menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
-        setShowProfileMenu(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleProfileClick = () => {
-    setShowProfileMenu(!showProfileMenu);
-  };
-
-  const handleProfileUpdate = () => {
-    navigate('/profile');
-    setShowProfileMenu(false);
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-    setShowProfileMenu(false);
-  };
-
-  // Get user initials for avatar
-  const getUserInitials = () => {
-    if (!user?.name) return 'U';
-    const names = user.name.split(' ');
-    if (names.length >= 2) {
-      return names[0][0].toUpperCase() + names[1][0].toUpperCase();
-    }
-    return names[0][0].toUpperCase();
-  };
 
   return (
     <nav className="navbar">
@@ -98,47 +53,8 @@ const Navbar = () => {
         </div>
 
         <div className="nav-actions">
-          {isAuthenticated ? (
-            <div className="profile-section" ref={profileMenuRef}>
-              <div 
-                className="profile-avatar" 
-                onClick={handleProfileClick}
-                title="Profile"
-              >
-                <span className="avatar-text">{getUserInitials()}</span>
-              </div>
-              
-              {showProfileMenu && (
-                <div className="profile-menu">
-                  <div className="profile-info">
-                    <div className="profile-name">{user?.name || 'User'}</div>
-                    <div className="profile-email">{user?.email || 'user@example.com'}</div>
-                  </div>
-                  <div className="profile-divider"></div>
-                  <button className="profile-menu-item" onClick={handleProfileUpdate}>
-                    <svg viewBox="0 0 24 24" className="menu-icon">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                      <circle cx="12" cy="7" r="4"/>
-                    </svg>
-                    Update Profile
-                  </button>
-                  <button className="profile-menu-item logout-item" onClick={handleLogout}>
-                    <svg viewBox="0 0 24 24" className="menu-icon">
-                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                      <polyline points="16,17 21,12 16,7"/>
-                      <line x1="21" y1="12" x2="9" y2="12"/>
-                    </svg>
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <>
-              <Link to="/login" className="nav-btn login-btn">Login</Link>
-              <Link to="/signup" className="nav-btn signup-btn">Sign Up</Link>
-            </>
-          )}
+          <Link to="/login" className="nav-btn login-btn">Login</Link>
+          <Link to="/signup" className="nav-btn signup-btn">Sign Up</Link>
         </div>
       </div>
     </nav>

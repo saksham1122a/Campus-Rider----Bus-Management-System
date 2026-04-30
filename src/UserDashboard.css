@@ -157,8 +157,135 @@
 /* MAIN CONTENT */
 .main-content {
   flex: 1;
-  padding: 24px;
+  padding: 40px;
+  padding-top: 80px; /* Add more top padding to avoid overlap */
   overflow-y: auto;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+  position: relative;
+}
+
+/* DASHBOARD PROFILE SECTION */
+.dashboard-profile-section {
+  position: fixed;
+  top: 80px;
+  right: 40px;
+  z-index: 1000;
+}
+
+/* PROFILE AVATAR - Simple and Visible */
+.dashboard-profile-section .profile-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4FC3F7, #1F8FA3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 4px 20px rgba(79, 195, 247, 0.4);
+  transition: all 0.3s ease;
+}
+
+.dashboard-profile-section .profile-avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(79, 195, 247, 0.6);
+}
+
+.dashboard-profile-section .avatar-text {
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* PROFILE DROPDOWN MENU */
+.dashboard-profile-section .profile-menu {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  min-width: 250px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dashboard-profile-section .profile-info {
+  padding: 20px;
+  background: rgba(79, 195, 247, 0.1);
+  border-bottom: 1px solid rgba(79, 195, 247, 0.2);
+}
+
+.dashboard-profile-section .profile-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0A3A4A;
+  margin-bottom: 4px;
+}
+
+.dashboard-profile-section .profile-email {
+  font-size: 14px;
+  color: rgba(10, 58, 74, 0.7);
+  word-break: break-all;
+}
+
+.dashboard-profile-section .profile-divider {
+  height: 1px;
+  background: rgba(79, 195, 247, 0.2);
+  margin: 0 10px;
+}
+
+.dashboard-profile-section .profile-menu-item {
+  width: 100%;
+  padding: 15px 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0A3A4A;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.dashboard-profile-section .profile-menu-item:hover {
+  background: rgba(79, 195, 247, 0.1);
+  color: #1F8FA3;
+}
+
+.dashboard-profile-section .profile-menu-item.logout-item:hover {
+  background: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+}
+
+.dashboard-profile-section .menu-icon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
 }
 
 .content-section {

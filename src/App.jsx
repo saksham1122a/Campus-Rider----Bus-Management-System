@@ -36,42 +36,70 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  
+  // Debug mode - set to true to see authentication logs
+  const DEBUG_MODE = process.env.NODE_ENV === 'development';
 
+  
   // Check for existing token on app start
   useEffect(() => {
     const checkAuthStatus = async () => {
       const token = localStorage.getItem("token");
+      const tokenExpiry = localStorage.getItem("tokenExpiry");
       
-      if (token) {
-        try {
-          // Verify token with backend
-          const response = await fetch("http://localhost:5000/api/auth/me", {
-            headers: {
-              "Authorization": `Bearer ${token}`
-            }
-          });
-
-          if (response.ok) {
-            const userData = await response.json();
-            setUser(userData);
-            setIsAuthenticated(true);
-            
-            // Optional: Check if token is close to expiry and refresh if needed
-            const tokenExpiry = localStorage.getItem("tokenExpiry");
-            if (tokenExpiry && Date.now() > parseInt(tokenExpiry)) {
-              // Token expired, clear it
-              handleLogout();
-            }
-          } else {
-            // Token invalid, clear it
-            localStorage.removeItem("token");
-            localStorage.removeItem("tokenExpiry");
+      // Only clear if no valid token or token is expired
+      if (!token || !tokenExpiry) {
+        if (DEBUG_MODE) console.log("No valid authentication token found");
+        localStorage.removeItem("token");
+        localStorage.removeItem("tokenExpiry");
+        localStorage.removeItem("user");
+        setUser(null);
+        setIsAuthenticated(false);
+        setLoading(false);
+        return;
+      }
+      
+      // Check if token is expired
+      if (Date.now() > parseInt(tokenExpiry)) {
+        if (DEBUG_MODE) console.log("Token expired, clearing authentication");
+        localStorage.removeItem("token");
+        localStorage.removeItem("tokenExpiry");
+        localStorage.removeItem("user");
+        setUser(null);
+        setIsAuthenticated(false);
+        setLoading(false);
+        return;
+      }
+      
+      // Valid token found, try to verify with backend
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/me", {
+          headers: {
+            "Authorization": `Bearer ${token}`
           }
-        } catch (error) {
-          console.error("Token verification failed:", error);
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+          setIsAuthenticated(true);
+          if (DEBUG_MODE) console.log("User authenticated successfully:", userData);
+        } else {
+          // Token invalid, clear it
+          if (DEBUG_MODE) console.log("Invalid token, clearing authentication");
           localStorage.removeItem("token");
           localStorage.removeItem("tokenExpiry");
+          localStorage.removeItem("user");
+          setUser(null);
+          setIsAuthenticated(false);
         }
+      } catch (error) {
+        if (DEBUG_MODE) console.error("Token verification failed:", error);
+        localStorage.removeItem("token");
+        localStorage.removeItem("tokenExpiry");
+        localStorage.removeItem("user");
+        setUser(null);
+        setIsAuthenticated(false);
       }
       
       setLoading(false);
@@ -93,10 +121,16 @@ const AuthProvider = ({ children }) => {
   };
 
   const handleLogout = () => {
+    // Clear all authentication data
     localStorage.removeItem("token");
     localStorage.removeItem("tokenExpiry");
+    localStorage.removeItem("user"); // Clear any cached user data
+    
+    // Reset authentication state
     setUser(null);
     setIsAuthenticated(false);
+    
+    if (DEBUG_MODE) console.log("User logged out, authentication state cleared");
   };
 
   const updateUser = async (userData) => {
@@ -204,19 +238,15 @@ const App = () => {
               <>
                 <Navbar />
                 <About />
-              </>
-            } />
-            <Route path="/contact" element={
-              <>
-                <Navbar />
                 <ContactUs />
+                <Footer />
               </>
             } />
           </Routes>
         </AuthProvider>
       </BusDataProvider>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App
